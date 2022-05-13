@@ -1,0 +1,3 @@
+es.bsc.inb.ga4gh.beacon.nosql.value.LongArrayReader
+es.bsc.inb.ga4gh.beacon.nosql.value.IntegerArrayReader
+es.bsc.inb.ga4gh.beacon.nosql.value.MeasurementValueReader
