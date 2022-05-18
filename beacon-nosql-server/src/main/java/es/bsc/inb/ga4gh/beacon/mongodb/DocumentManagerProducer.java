@@ -53,7 +53,11 @@ public class DocumentManagerProducer {
     
     @PostConstruct
     public void init() {
-        ConnectionString con = new ConnectionString(ctx.getInitParameter(MONGODB_URI_PROPERTY));
+        String mongodb_url = System.getenv(MONGODB_URI_PROPERTY);
+        if (mongodb_url == null || mongodb_url.isEmpty()) {
+            mongodb_url = ctx.getInitParameter(MONGODB_URI_PROPERTY);
+        }
+        ConnectionString con = new ConnectionString(mongodb_url);
         DocumentCollectionManagerFactory factory = new MongoDBDocumentConfiguration().get(MongoClients.create(con));
         manager = factory.get(con.getDatabase());
     }
