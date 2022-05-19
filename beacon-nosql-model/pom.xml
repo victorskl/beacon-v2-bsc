@@ -27,7 +27,7 @@
     <parent>
         <groupId>es.bsc.inb.ga4gh</groupId>
         <artifactId>beacon-v2-bsc</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>2.0.0</version>
     </parent>
 
     <artifactId>beacon-nosql-model</artifactId>
@@ -98,10 +98,6 @@
 
     <repositories>
         <repository>
-            <id>gitlab-bsc-maven</id>
-           <url>https://inb.bsc.es/maven</url>
-        </repository>
-        <repository>
             <id>jakarta.sonatype.org-snapshot</id>
             <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
             <releases>
@@ -122,16 +118,4 @@
             </snapshots>
         </repository>
     </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>gitlab-bsc-maven</id>
-            <url>https://inb.bsc.es/maven</url>
-        </repository>
-        <snapshotRepository>
-            <id>gitlab-bsc-maven</id>
-            <url>https://inb.bsc.es/maven</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 </project>
