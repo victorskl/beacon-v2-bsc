@@ -208,7 +208,7 @@ public class GenomicVariationsService
         if (obj != null) {
             return where == null ? from.where(field).eq(obj) : where.and(field).eq(obj);
         }
-        return null;
+        return where;
     }
 
     private DocumentWhere addGteCondition(DocumentFrom from, DocumentWhere where, String field, Object obj) {
