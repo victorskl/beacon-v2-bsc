@@ -41,7 +41,7 @@ import java.util.logging.Logger;
  */
 
 public class ServiceConfigurationProducer {
-    private final static String SERVICE_CONFIG_FILE = "configuration.json";
+    private final static String SERVICE_CONFIG_FILE = "BEACON-INF/configuration.json";
     
     @Inject 
     private ServletContext ctx;

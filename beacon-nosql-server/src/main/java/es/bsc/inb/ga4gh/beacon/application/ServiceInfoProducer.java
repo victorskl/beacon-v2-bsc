@@ -41,7 +41,7 @@ import java.util.logging.Logger;
 
 public class ServiceInfoProducer {
 
-    private final static String SERVICE_INFO_FILE = "service_info.json";
+    private final static String SERVICE_INFO_FILE = "BEACON-INF/service_info.json";
     
     @Inject 
     private ServletContext ctx;

@@ -45,7 +45,7 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class BeaconInfoProducer implements Serializable {
 
-    private final static String BEACON_INFO_FILE = "beacon_info.json";
+    private final static String BEACON_INFO_FILE = "BEACON-INF/beacon_info.json";
     
     @Inject 
     private ServletContext ctx;
