@@ -29,6 +29,7 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.RunsRequestParameters;
 import es.bsc.inb.ga4gh.beacon.nosql.AnalysisEntity;
+import es.bsc.inb.ga4gh.beacon.nosql.RunEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.VariantEntity;
 import es.bsc.inb.ga4gh.beacon.query.AnalysesRepository;
 import es.bsc.inb.ga4gh.beacon.query.RunsRepository;
@@ -71,24 +72,14 @@ public class RunsService
 
         return pagination == null ? runs_repository.findAll() : runs_repository.findAll(pagination);
     }
-    
-    public BeaconResultsetsResponse getOneRunsGenomicVariants(String id, BeaconRequestBody request) {
+
+    public BeaconResultsetsResponse getBiosampleRuns(String id, BeaconRequestBody request) {
+
         final Pagination pagination = getPagination(request);
+        List<RunEntity> runs = pagination == null ? 
+                runs_repository.findByBiosampleId(id) :
+                runs_repository.findByBiosampleId(id, pagination);
 
-        final List<VariantEntity> variants = pagination == null ? 
-                variants_repository.findByRunId(id) : 
-                variants_repository.findByRunId(id, pagination);
-
-        return makeResponse(variants);
-    }
-    
-    public BeaconResultsetsResponse getOneRunsAnalyses(String id, BeaconRequestBody request) {
-        final Pagination pagination = getPagination(request);
-
-        final List<AnalysisEntity> variants = pagination == null ? 
-                analyses_repository.findByRunId(id) : 
-                analyses_repository.findByRunId(id, pagination);
-
-        return makeResponse(variants);
+        return makeResponse(runs);
     }
 }

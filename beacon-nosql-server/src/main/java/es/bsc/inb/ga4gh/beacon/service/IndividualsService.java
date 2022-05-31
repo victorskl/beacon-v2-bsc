@@ -29,7 +29,8 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.IndividualsRequestParameters;
-import es.bsc.inb.ga4gh.beacon.nosql.BiosampleEntity;
+import es.bsc.inb.ga4gh.beacon.nosql.CaseLevelVariantEntity;
+import es.bsc.inb.ga4gh.beacon.nosql.IndividualEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.VariantEntity;
 import es.bsc.inb.ga4gh.beacon.query.BiosamplesRepository;
 import es.bsc.inb.ga4gh.beacon.query.IndividualsRepository;
@@ -39,7 +40,10 @@ import jakarta.inject.Inject;
 import jakarta.nosql.mapping.Database;
 import jakarta.nosql.mapping.DatabaseType;
 import jakarta.nosql.mapping.Pagination;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Dmitry Repchevsky
@@ -80,23 +84,39 @@ public class IndividualsService
         return null;
     }
     
-    public BeaconResultsetsResponse getOneIndividualGenomicVariants(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse getGenomicVariationIndividuals(String id, BeaconRequestBody request) {
+
+        final Optional<VariantEntity> variant = variants_repository.findById(id);
+        if (variant == null || variant.isEmpty()) {
+            return makeResponse(Collections.EMPTY_LIST);
+        }
+        
+        final List<CaseLevelVariantEntity> data = variant.get().getCaseLevelData();
+        if (data == null || data.isEmpty()) {
+            return makeResponse(Collections.EMPTY_LIST);
+        }
+
+        final List<IndividualEntity> individuals = new ArrayList();
+        
         final Pagination pagination = getPagination(request);
+        final int start = pagination == null ? 0 : (int)pagination.getSkip();
+        final int end = pagination == null ? data.size() : (int)pagination.getLimit();
 
-        final List<VariantEntity> variants = pagination == null ? 
-                variants_repository.findByIndividualId(id) : 
-                variants_repository.findByIndividualId(id, pagination);
-
-        return makeResponse(variants);
+        for (int i = start; i < end; i++) {
+            final CaseLevelVariantEntity entity = data.get(i);
+            final String individualId = entity.getIndividualId();
+            if (individualId != null) {
+                final Optional<IndividualEntity> individual = 
+                        individuals_repository.findById(id);
+                if (individual != null && individual.isPresent()) {
+                    individuals.add(individual.get());
+                }
+            }
+        }
+        return makeResponse(individuals);
     }
-    
-    public BeaconResultsetsResponse getOneIndividualBiosamples(String id, BeaconRequestBody request) {
-        final Pagination pagination = getPagination(request);
 
-        final List<BiosampleEntity> variants = pagination == null ? 
-                biosamples_repository.findByIndividualId(id) : 
-                biosamples_repository.findByIndividualId(id, pagination);
-
-        return makeResponse(variants);
+    public BeaconResultsetsResponse getCohortIndividuals(String id, BeaconRequestBody request) {
+        return null;
     }
 }

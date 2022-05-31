@@ -26,7 +26,6 @@
 package es.bsc.inb.ga4gh.beacon.service;
 
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.DatasetsRequestParameters;
-import es.bsc.inb.ga4gh.beacon.query.CohortsRepository;
 import es.bsc.inb.ga4gh.beacon.query.DatasetsRepository;
 import jakarta.inject.Inject;
 import jakarta.nosql.mapping.Database;

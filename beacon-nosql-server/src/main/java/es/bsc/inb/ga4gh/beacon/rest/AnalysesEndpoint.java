@@ -32,6 +32,7 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.rest.AnalysesEndpointInterface;
 import es.bsc.inb.ga4gh.beacon.service.AnalysesService;
+import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
 import jakarta.inject.Inject;
 
 /**
@@ -42,7 +43,10 @@ public class AnalysesEndpoint extends AbstractAsyncEndpoint
         implements AnalysesEndpointInterface {
 
     @Inject 
-    private AnalysesService service;
+    private AnalysesService analyses_service;
+
+    @Inject 
+    private GenomicVariationsService variants_service;
 
     @Override
     public BeaconResultsetsResponse getAnalyses(
@@ -58,24 +62,24 @@ public class AnalysesEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
 
-        return service.getBeacon(request);
+        return analyses_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse postAnalyses(BeaconRequestBody request) {
-        return service.getBeacon(request);
+        return analyses_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse getOneAnalysis(String id) {
-        return service.getBeacon(id);
+        return analyses_service.getBeacon(id);
     }
 
     @Override
     public BeaconResultsetsResponse postOneAnalysisRequest(String id, 
             BeaconRequestBody request) {
 
-        return service.getBeacon(id);
+        return analyses_service.getBeacon(id);
     }
 
     @Override
@@ -91,12 +95,12 @@ public class AnalysesEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getOneAnalysisGenomicVariants(id, request);
+        return variants_service.getAnalysisGenomicVariants(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse postOneAnalysisGenomicVariantsRequest(String id, BeaconRequestBody request) {
-        return service.getOneAnalysisGenomicVariants(id, request);
+        return variants_service.getAnalysisGenomicVariants(id, request);
     }
     
 }

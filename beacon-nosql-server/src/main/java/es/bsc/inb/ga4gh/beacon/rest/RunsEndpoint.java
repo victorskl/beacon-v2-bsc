@@ -31,6 +31,8 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.rest.RunsEndpointInterface;
+import es.bsc.inb.ga4gh.beacon.service.AnalysesService;
+import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
 import es.bsc.inb.ga4gh.beacon.service.RunsService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -44,7 +46,13 @@ public class RunsEndpoint extends AbstractAsyncEndpoint
         implements RunsEndpointInterface {
 
     @Inject 
-    private RunsService service;
+    private RunsService runs_service;
+    
+    @Inject 
+    private AnalysesService analyses_service;
+    
+    @Inject 
+    private GenomicVariationsService variants_service;
 
     @Override
     public BeaconResultsetsResponse getRuns(String requested_schema, 
@@ -59,24 +67,24 @@ public class RunsEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getBeacon(request);
+        return runs_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse postRunsRequest(BeaconRequestBody request) {
-        return service.getBeacon(request);
+        return runs_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse getOneRun(String id) {
-        return service.getBeacon(id);
+        return runs_service.getBeacon(id);
     }
 
     @Override
     public BeaconResultsetsResponse postOneRun(String id, 
             BeaconRequestBody request) {
 
-        return service.getBeacon(id);
+        return runs_service.getBeacon(id);
     }
 
     @Override
@@ -92,14 +100,14 @@ public class RunsEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getOneRunsGenomicVariants(id, request);
+        return variants_service.getRunsGenomicVariants(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse postOneRunGenomicVariantsRequest(String id, 
             BeaconRequestBody request) {
 
-        return service.getOneRunsGenomicVariants(id, request);
+        return variants_service.getRunsGenomicVariants(id, request);
     }
 
     @Override
@@ -115,13 +123,13 @@ public class RunsEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getOneRunsAnalyses(id, request);    
+        return analyses_service.getRunsAnalyses(id, request);    
     }
 
     @Override
     public BeaconResultsetsResponse postOneRunAnalysesRequest(String id, 
             BeaconRequestBody request) {
 
-        return service.getOneRunsAnalyses(id, request);  
+        return analyses_service.getRunsAnalyses(id, request);  
     }
 }

@@ -28,19 +28,20 @@ package es.bsc.inb.ga4gh.beacon.service;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.BiosamplesRequestParameters;
-import es.bsc.inb.ga4gh.beacon.nosql.AnalysisEntity;
-import es.bsc.inb.ga4gh.beacon.nosql.RunEntity;
+import es.bsc.inb.ga4gh.beacon.nosql.BiosampleEntity;
+import es.bsc.inb.ga4gh.beacon.nosql.CaseLevelVariantEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.VariantEntity;
-import es.bsc.inb.ga4gh.beacon.query.AnalysesRepository;
 import jakarta.nosql.mapping.Database;
 import jakarta.nosql.mapping.DatabaseType;
 import java.util.List;
 import es.bsc.inb.ga4gh.beacon.query.BiosamplesRepository;
-import es.bsc.inb.ga4gh.beacon.query.RunsRepository;
 import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.nosql.mapping.Pagination;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Optional;
 
 /**
  * @author Dmitry Repchevsky
@@ -58,14 +59,6 @@ public class BiosamplesService
     @Database(DatabaseType.DOCUMENT)    
     private VariantsRepository variants_repository;
 
-    @Inject
-    @Database(DatabaseType.DOCUMENT)
-    private AnalysesRepository analyses_repository;
-
-    @Inject
-    @Database(DatabaseType.DOCUMENT)    
-    private RunsRepository runs_repository;
-
     @Override
     public BiosamplesRepository getRepository() {
         return biosamples_repository;
@@ -77,40 +70,46 @@ public class BiosamplesService
         return pagination == null ? biosamples_repository.findAll() : 
                 biosamples_repository.findAll(pagination);
     }
+    
+    public BeaconResultsetsResponse getGenomicVariationBiosamples(String id, BeaconRequestBody request) {
 
-    public BeaconResultsetsResponse getOneBiosampleGenomicVariants(String id, BeaconRequestBody request) {
+        final Optional<VariantEntity> variant = variants_repository.findById(id);
+        if (variant == null || variant.isEmpty()) {
+            return makeResponse(Collections.EMPTY_LIST);
+        }
+        
+        final List<CaseLevelVariantEntity> data = variant.get().getCaseLevelData();
+        if (data == null || data.isEmpty()) {
+            return makeResponse(Collections.EMPTY_LIST);
+        }
+
+        final List<BiosampleEntity> biosamples = new ArrayList();
+        
+        final Pagination pagination = getPagination(request);
+        final int start = pagination == null ? 0 : (int)pagination.getSkip();
+        final int end = pagination == null ? data.size() : (int)pagination.getLimit();
+
+        for (int i = start; i < end; i++) {
+            final CaseLevelVariantEntity entity = data.get(i);
+            final String biosampleId = entity.getBiosampleId();
+            if (biosampleId != null) {
+                final Optional<BiosampleEntity> biosample = 
+                        biosamples_repository.findById(id);
+                if (biosample != null && biosample.isPresent()) {
+                    biosamples.add(biosample.get());
+                }
+            }
+        }
+        return makeResponse(biosamples);
+    }
+
+    public BeaconResultsetsResponse getIndividualBiosamples(String id, BeaconRequestBody request) {
         final Pagination pagination = getPagination(request);
 
-        final List<VariantEntity> variants = pagination == null ? 
-                variants_repository.findByBiosampleId(id) : 
-                variants_repository.findByBiosampleId(id, pagination);
+        final List<BiosampleEntity> variants = pagination == null ? 
+                biosamples_repository.findByIndividualId(id) : 
+                biosamples_repository.findByIndividualId(id, pagination);
 
         return makeResponse(variants);
-    }
-            
-    public BeaconResultsetsResponse getOneBiosampleAnalysis(String id, BeaconRequestBody request) {
-        final Pagination pagination = getPagination(request);
-        
-        List<AnalysisEntity> analyses = pagination == null ?
-                analyses_repository.findByBiosampleId(id) :
-                analyses_repository.findByBiosampleId(id, pagination);
-
-        return makeResponse(analyses);
-    }
-
-    /**
-     * Query Runs Beacons 
-     * @param id
-     * @param request
-     * @return 
-     */
-    public BeaconResultsetsResponse getOneBiosampleRuns(String id, BeaconRequestBody request) {
-
-        final Pagination pagination = getPagination(request);
-        List<RunEntity> runs = pagination == null ? 
-                runs_repository.findByBiosampleId(id) :
-                runs_repository.findByBiosampleId(id, pagination);
-
-        return makeResponse(runs);
     }
 }

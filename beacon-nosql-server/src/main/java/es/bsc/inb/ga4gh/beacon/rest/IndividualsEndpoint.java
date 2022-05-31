@@ -33,6 +33,8 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconFilteringTermsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.rest.IndividualsEndpointInterface;
+import es.bsc.inb.ga4gh.beacon.service.BiosamplesService;
+import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
 import es.bsc.inb.ga4gh.beacon.service.IndividualsService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -48,7 +50,13 @@ public class IndividualsEndpoint extends AbstractAsyncEndpoint
         implements IndividualsEndpointInterface {
     
     @Inject 
-    private IndividualsService service;
+    private IndividualsService individuals_service;
+    
+    @Inject 
+    private BiosamplesService biosamples_service;
+    
+    @Inject 
+    private GenomicVariationsService variants_service;
     
     @Override
     public BeaconResultsetsResponse getIndividuals(
@@ -62,22 +70,22 @@ public class IndividualsEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getBeacon(request);
+        return individuals_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse postIndividualsRequest(BeaconRequestBody request) {
-        return service.getBeacon(request);
+        return individuals_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse getOneIndividual(String id) {
-        return service.getBeacon(id);
+        return individuals_service.getBeacon(id);
     }
 
     @Override
     public BeaconResultsetsResponse postOneIndividualRequest(String id, BeaconRequestBody request) {
-        return service.getBeacon(id);
+        return individuals_service.getBeacon(id);
     }
 
     @Override
@@ -93,14 +101,14 @@ public class IndividualsEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getOneIndividualGenomicVariants(id, request);
+        return variants_service.getIndividualGenomicVariants(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse postOneIndividualGenomicVariantsRequest(String id, 
             BeaconRequestBody request) {
 
-        return service.getOneIndividualGenomicVariants(id, request);
+        return variants_service.getIndividualGenomicVariants(id, request);
     }
 
     @Override
@@ -116,14 +124,14 @@ public class IndividualsEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getOneIndividualBiosamples(id, request);
+        return biosamples_service.getIndividualBiosamples(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse postOneIndividualBiosamplesRequest(String id,
             BeaconRequestBody request) {
 
-        return service.getOneIndividualBiosamples(id, request);
+        return biosamples_service.getIndividualBiosamples(id, request);
     }
 
     @Override

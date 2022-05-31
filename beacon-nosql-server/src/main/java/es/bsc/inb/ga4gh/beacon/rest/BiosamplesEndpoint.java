@@ -31,7 +31,10 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.rest.BiosamplesEndpointInterface;
+import es.bsc.inb.ga4gh.beacon.service.AnalysesService;
 import es.bsc.inb.ga4gh.beacon.service.BiosamplesService;
+import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
+import es.bsc.inb.ga4gh.beacon.service.RunsService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -44,8 +47,17 @@ public class BiosamplesEndpoint extends AbstractAsyncEndpoint
         implements BiosamplesEndpointInterface {
 
     @Inject 
-    private BiosamplesService service;
+    private BiosamplesService biosamples_service;
+    
+    @Inject 
+    private RunsService runs_service;
+    
+    @Inject 
+    private AnalysesService analyses_service;
 
+    @Inject 
+    private GenomicVariationsService variants_service;
+    
     @Override
     public BeaconResultsetsResponse getBiosamples(
             String requested_schema, 
@@ -63,25 +75,25 @@ public class BiosamplesEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
 
-        return service.getBeacon(request);
+        return biosamples_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse postBiosamplesRequest(
             BeaconRequestBody request) {
 
-        return service.getBeacon(request);
+        return biosamples_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse getOneBiosample(String id) {
-        return service.getBeacon(id);
+        return biosamples_service.getBeacon(id);
     }
 
     @Override
     public BeaconResultsetsResponse postOneBiosampleRequest(
             String id, BeaconRequestBody request) {
-        return service.getBeacon(id);
+        return biosamples_service.getBeacon(id);
     }
 
     @Override
@@ -97,13 +109,13 @@ public class BiosamplesEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getOneBiosampleGenomicVariants(id, request);
+        return variants_service.getBiosampleGenomicVariants(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse postOneBiosampleGenomicVariantsRequest(
             String id, BeaconRequestBody request) {
-        return service.getOneBiosampleGenomicVariants(id, request);
+        return variants_service.getBiosampleGenomicVariants(id, request);
     }
 
     @Override
@@ -119,13 +131,13 @@ public class BiosamplesEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getOneBiosampleAnalysis(id, request);
+        return analyses_service.getBiosampleAnalysis(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse postOneBiosampleAnalysisRequest(
             String id, BeaconRequestBody request) {
-        return service.getOneBiosampleAnalysis(id, request);
+        return analyses_service.getBiosampleAnalysis(id, request);
     }
 
     @Override
@@ -141,12 +153,12 @@ public class BiosamplesEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getOneBiosampleRuns(id, request);
+        return runs_service.getBiosampleRuns(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse getOneBiosampleRuns(String id, BeaconRequestBody request) {
-        return service.getOneBiosampleRuns(id, request);
+        return runs_service.getBiosampleRuns(id, request);
     }
 
 }

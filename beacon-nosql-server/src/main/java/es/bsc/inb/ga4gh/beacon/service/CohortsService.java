@@ -49,10 +49,6 @@ public class CohortsService
     @Database(DatabaseType.DOCUMENT)
     private CohortsRepository cohorts_repository;
 
-    @Inject
-    @Database(DatabaseType.DOCUMENT)
-    private IndividualsRepository individuals_repository;
-
     @Override
     public CohortsRepository getRepository() {
         return cohorts_repository;
@@ -63,9 +59,5 @@ public class CohortsService
             Pagination pagination) {
 
         return pagination == null ? cohorts_repository.findAll() : cohorts_repository.findAll(pagination);
-    }
-    
-    public BeaconResultsetsResponse getOneCohortIndividuals(String id, BeaconRequestBody request) {
-        return null;
     }
 }

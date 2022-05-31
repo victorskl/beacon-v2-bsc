@@ -25,7 +25,6 @@
 
 package es.bsc.inb.ga4gh.beacon.rest;
 
-import es.bsc.inb.ga4gh.beacon.framework.model.v200.CohortsRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.IndividualsRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.Pagination;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
@@ -35,6 +34,7 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconFilteringTer
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.rest.CohortsEndpointInterface;
 import es.bsc.inb.ga4gh.beacon.service.CohortsService;
+import es.bsc.inb.ga4gh.beacon.service.IndividualsService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -47,7 +47,10 @@ public class CohortsEndpoint extends AbstractAsyncEndpoint
         implements CohortsEndpointInterface {
 
     @Inject 
-    private CohortsService service;
+    private CohortsService cohorts_service;
+
+    @Inject 
+    private IndividualsService individuals_service;
 
     @Override
     public BeaconCollectionsResponse getCohorts(String requested_schema, Integer skip, Integer limit) {
@@ -63,12 +66,12 @@ public class CohortsEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconResultsetsResponse getOneCohort(String id) {
-        return service.getBeacon(id);
+        return cohorts_service.getBeacon(id);
     }
 
     @Override
     public BeaconResultsetsResponse postOneCohortRequest(String id, BeaconRequestBody request) {
-        return service.getBeacon(id);
+        return cohorts_service.getBeacon(id);
     }
 
     @Override
@@ -82,12 +85,12 @@ public class CohortsEndpoint extends AbstractAsyncEndpoint
         request.setQuery(query);
         request.setSchema(requested_schema);
         
-        return service.getOneCohortIndividuals(id, request);
+        return individuals_service.getCohortIndividuals(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse postOneCohortIndividualsRequest(String id, BeaconRequestBody request) {
-        return service.getOneCohortIndividuals(id, request);
+        return individuals_service.getCohortIndividuals(id, request);
     }
 
     @Override

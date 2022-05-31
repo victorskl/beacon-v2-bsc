@@ -26,11 +26,14 @@
 package es.bsc.inb.ga4gh.beacon.rest;
 
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.GenomicVariationsRequestParameters;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.Pagination;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.rest.GenomicVariationsEndpointInterface;
+import es.bsc.inb.ga4gh.beacon.service.BiosamplesService;
 import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
+import es.bsc.inb.ga4gh.beacon.service.IndividualsService;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
@@ -45,7 +48,13 @@ public class GenomicVariationsEndpoint extends AbstractAsyncEndpoint
         implements GenomicVariationsEndpointInterface {
 
     @Inject 
-    private GenomicVariationsService service;
+    private GenomicVariationsService variants_service;
+    
+    @Inject
+    private BiosamplesService biosamples_service;
+    
+    @Inject 
+    private IndividualsService individuals_service;
 
     @Override
     public BeaconResultsetsResponse getGenomicVariations(
@@ -84,42 +93,63 @@ public class GenomicVariationsEndpoint extends AbstractAsyncEndpoint
         BeaconRequestBody request = new BeaconRequestBody();
         request.setQuery(query);
         
-        return service.getBeacon(request);
+        return variants_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse postGenomicVariationsRequest(BeaconRequestBody request) {
-        return service.getBeacon(request);
+        return variants_service.getBeacon(request);
     }
 
     @Override
     public BeaconResultsetsResponse getOneGenomicVariation(String id) {
-        return service.getBeacon(id);
+        return variants_service.getBeacon(id);
     }
 
     @Override
-    public BeaconResultsetsResponse postOneGenomicVariationRequest(String id, BeaconRequestBody request) {
-        return service.getBeacon(id);
+    public BeaconResultsetsResponse postOneGenomicVariationRequest(
+            String id, BeaconRequestBody request) {
+        return variants_service.getBeacon(id);
     }
 
     @Override
-    public BeaconResultsetsResponse getBiosamples(String id) {
-        return service.getOneGenomicVariationBiosamples(id, null);
+    public BeaconResultsetsResponse getBiosamples(
+            String id, String requested_schema, Integer skip, Integer limit) {
+        BeaconRequestQuery query = new BeaconRequestQuery<GenomicVariationsRequestParameters>();
+        if (skip != null || limit != null) {
+            query.setPagination(new Pagination(skip, limit));
+        }
+        
+        BeaconRequestBody request = new BeaconRequestBody();
+        request.setQuery(query);
+        request.setSchema(requested_schema);
+        
+        return biosamples_service.getGenomicVariationBiosamples(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse postBiosamplesRequest(String id, BeaconRequestBody request) {
-        return service.getOneGenomicVariationBiosamples(id, request);
+        return biosamples_service.getGenomicVariationBiosamples(id, request);
     }
 
     @Override
-    public BeaconResultsetsResponse getIndividuals(String id) {
-        return service.getOneGenomicVariationIndividuals(id, null);
+    public BeaconResultsetsResponse getIndividuals(
+            String id, String requested_schema, Integer skip, Integer limit) {
+        BeaconRequestQuery query = new BeaconRequestQuery<GenomicVariationsRequestParameters>();
+        if (skip != null || limit != null) {
+            query.setPagination(new Pagination(skip, limit));
+        }
+        
+        BeaconRequestBody request = new BeaconRequestBody();
+        request.setQuery(query);
+        request.setSchema(requested_schema);
+
+        return individuals_service.getGenomicVariationIndividuals(id, request);
     }
 
     @Override
     public BeaconResultsetsResponse postIndividualsRequest(String id, BeaconRequestBody request) {
-        return service.getOneGenomicVariationIndividuals(id, request);
+        return individuals_service.getGenomicVariationIndividuals(id, request);
     }
 
 }

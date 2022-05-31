@@ -28,6 +28,7 @@ package es.bsc.inb.ga4gh.beacon.service;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.AnalysesRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
+import es.bsc.inb.ga4gh.beacon.nosql.AnalysisEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.VariantEntity;
 import es.bsc.inb.ga4gh.beacon.query.AnalysesRepository;
 import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
@@ -45,14 +46,9 @@ import java.util.List;
 @ApplicationScoped
 public class AnalysesService extends AbstractBeaconService<AnalysesRepository, AnalysesRequestParameters> {
 
-
     @Inject
     @Database(DatabaseType.DOCUMENT)
     private AnalysesRepository analyses_repository;
-
-    @Inject
-    @Database(DatabaseType.DOCUMENT)
-    private VariantsRepository variants_repository;
 
     @Override
     public AnalysesRepository getRepository() {
@@ -65,15 +61,23 @@ public class AnalysesService extends AbstractBeaconService<AnalysesRepository, A
         return pagination == null ? analyses_repository.findAll() : analyses_repository.findAll(pagination);
     }
     
-    public BeaconResultsetsResponse getOneAnalysisGenomicVariants(String id, BeaconRequestBody request) {
-        
+    public BeaconResultsetsResponse getRunsAnalyses(String id, BeaconRequestBody request) {
         final Pagination pagination = getPagination(request);
 
-        final List<VariantEntity> variants = pagination == null ? 
-                variants_repository.findByAnalisisId(id) : 
-                variants_repository.findByAnalisisId(id, pagination);
-        
+        final List<AnalysisEntity> variants = pagination == null ? 
+                analyses_repository.findByRunId(id) : 
+                analyses_repository.findByRunId(id, pagination);
 
         return makeResponse(variants);
+    }
+    
+    public BeaconResultsetsResponse getBiosampleAnalysis(String id, BeaconRequestBody request) {
+        final Pagination pagination = getPagination(request);
+        
+        List<AnalysisEntity> analyses = pagination == null ?
+                analyses_repository.findByBiosampleId(id) :
+                analyses_repository.findByBiosampleId(id, pagination);
+
+        return makeResponse(analyses);
     }
 }

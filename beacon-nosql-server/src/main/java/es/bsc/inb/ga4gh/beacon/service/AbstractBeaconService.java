@@ -28,14 +28,17 @@ package es.bsc.inb.ga4gh.beacon.service;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResponseMeta;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResponseSummary;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultset;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsets;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
+import jakarta.inject.Inject;
 import jakarta.nosql.mapping.Pagination;
 import jakarta.nosql.mapping.Repository;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -48,6 +51,9 @@ import java.util.Optional;
 public abstract class AbstractBeaconService<K extends Repository, 
         L extends BeaconRequestParameters> {
     
+    @Inject
+    private Map<String, BeaconResponseMeta> meta;
+
     public abstract K getRepository();
     
     protected abstract List findEntities(L params, Pagination pagination);
@@ -142,5 +148,5 @@ public abstract class AbstractBeaconService<K extends Repository,
         }
         return response;
     }
-    
+
 }

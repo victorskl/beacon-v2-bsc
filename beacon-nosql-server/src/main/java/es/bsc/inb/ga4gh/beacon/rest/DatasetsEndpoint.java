@@ -41,7 +41,7 @@ public class DatasetsEndpoint extends AbstractAsyncEndpoint
         implements DatasetsEndpointInterface {
 
     @Inject 
-    private DatasetsService service;
+    private DatasetsService datasets_service;
     
     @Override
     public BeaconCollectionsResponse getDatasets(String requested_schema, Integer skip, Integer limit) {
@@ -57,12 +57,12 @@ public class DatasetsEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconResultsetsResponse getOneDataset(String id) {
-        return service.getBeacon(id);
+        return datasets_service.getBeacon(id);
     }
 
     @Override
     public BeaconResultsetsResponse postOneDatasetRequest(String id, BeaconRequestBody request) {
-        return service.getBeacon(id);
+        return datasets_service.getBeacon(id);
     }
 
     @Override
