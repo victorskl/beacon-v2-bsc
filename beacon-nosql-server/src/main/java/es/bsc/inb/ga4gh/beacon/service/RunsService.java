@@ -28,14 +28,13 @@ package es.bsc.inb.ga4gh.beacon.service;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.RunsRequestParameters;
-import es.bsc.inb.ga4gh.beacon.nosql.AnalysisEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.RunEntity;
-import es.bsc.inb.ga4gh.beacon.nosql.VariantEntity;
 import es.bsc.inb.ga4gh.beacon.query.AnalysesRepository;
 import es.bsc.inb.ga4gh.beacon.query.RunsRepository;
 import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.nosql.mapping.Database;
 import jakarta.nosql.mapping.DatabaseType;
 import jakarta.nosql.mapping.Pagination;
@@ -45,6 +44,7 @@ import java.util.List;
  * @author Dmitry Repchevsky
  */
 
+@Named("run")
 @ApplicationScoped
 public class RunsService 
         extends AbstractBeaconService<RunsRepository, RunsRequestParameters> {
@@ -52,14 +52,6 @@ public class RunsService
     @Inject
     @Database(DatabaseType.DOCUMENT)
     private RunsRepository runs_repository;
-
-    @Inject
-    @Database(DatabaseType.DOCUMENT)
-    private VariantsRepository variants_repository;
-
-    @Inject
-    @Database(DatabaseType.DOCUMENT)
-    private AnalysesRepository analyses_repository;
 
     @Override
     public RunsRepository getRepository() {

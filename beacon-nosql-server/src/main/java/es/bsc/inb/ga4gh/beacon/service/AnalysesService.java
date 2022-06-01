@@ -29,11 +29,10 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.AnalysesRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.nosql.AnalysisEntity;
-import es.bsc.inb.ga4gh.beacon.nosql.VariantEntity;
 import es.bsc.inb.ga4gh.beacon.query.AnalysesRepository;
-import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.nosql.mapping.Database;
 import jakarta.nosql.mapping.DatabaseType;
 import jakarta.nosql.mapping.Pagination;
@@ -43,6 +42,7 @@ import java.util.List;
  * @author Dmitry Repchevsky
  */
 
+@Named("analysis")
 @ApplicationScoped
 public class AnalysesService extends AbstractBeaconService<AnalysesRepository, AnalysesRequestParameters> {
 

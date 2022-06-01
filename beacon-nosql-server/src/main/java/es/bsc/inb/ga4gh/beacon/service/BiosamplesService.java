@@ -38,6 +38,7 @@ import es.bsc.inb.ga4gh.beacon.query.BiosamplesRepository;
 import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.nosql.mapping.Pagination;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +48,7 @@ import java.util.Optional;
  * @author Dmitry Repchevsky
  */
 
+@Named("biosample")
 @ApplicationScoped
 public class BiosamplesService 
         extends AbstractBeaconService<BiosamplesRepository, BiosamplesRequestParameters> {

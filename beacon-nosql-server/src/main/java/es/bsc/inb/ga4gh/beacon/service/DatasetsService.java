@@ -27,7 +27,9 @@ package es.bsc.inb.ga4gh.beacon.service;
 
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.DatasetsRequestParameters;
 import es.bsc.inb.ga4gh.beacon.query.DatasetsRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.nosql.mapping.Database;
 import jakarta.nosql.mapping.DatabaseType;
 import jakarta.nosql.mapping.Pagination;
@@ -37,6 +39,8 @@ import java.util.List;
  * @author Dmitry Repchevsky
  */
 
+@Named("dataset")
+@ApplicationScoped
 public class DatasetsService 
         extends AbstractBeaconService<DatasetsRepository, DatasetsRequestParameters> {
 

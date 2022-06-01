@@ -25,14 +25,22 @@
 
 package es.bsc.inb.ga4gh.beacon.service;
 
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.SchemaPerEntity;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.SchemaReference;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.BeaconConfiguration;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.ServiceConfiguration;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInformationalResponseMeta;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResponseMeta;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResponseSummary;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultset;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsets;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.EntryTypeDefinition;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.inject.Inject;
 import jakarta.nosql.mapping.Pagination;
 import jakarta.nosql.mapping.Repository;
@@ -51,8 +59,34 @@ import java.util.Optional;
 public abstract class AbstractBeaconService<K extends Repository, 
         L extends BeaconRequestParameters> {
     
+    @Inject BeanManager manager;
+    
     @Inject
-    private Map<String, BeaconResponseMeta> meta;
+    private ServiceConfiguration configuration;
+
+    private BeaconInformationalResponseMeta imeta;
+    private SchemaPerEntity default_schema;
+    
+    @PostConstruct
+    public void init() {
+        imeta = configuration.getMeta();
+        final BeaconConfiguration config = configuration.getResponse();
+        if (config != null) {
+            final Map<String, EntryTypeDefinition> entry_types = config.getEntryTypes();
+            if (entry_types != null) {
+                final String name = manager.resolve(manager.getBeans(this.getClass())).getName();
+                final EntryTypeDefinition entry_type = entry_types.get(name);
+                if (entry_type != null) {
+                    final SchemaReference schema_ref = entry_type.getDefaultSchema();
+                    if (schema_ref != null) {
+                        default_schema = new SchemaPerEntity();
+                        default_schema.setSchema(schema_ref.getReferenceToSchemaDefinition());
+                        default_schema.setEntityType(entry_type.getId());
+                    }
+                }
+            }
+        }
+    }
 
     public abstract K getRepository();
     
@@ -78,6 +112,7 @@ public abstract class AbstractBeaconService<K extends Repository,
                 resultsets.setResultSets(Arrays.asList(resultset));
 
                 response.setResponse(resultsets);
+                response.setMeta(getMeta());
             }
             return response;
         } catch (Throwable th) {
@@ -146,7 +181,20 @@ public abstract class AbstractBeaconService<K extends Repository,
 
             response.setResponse(resultsets);
         }
+        response.setMeta(getMeta());
         return response;
     }
 
+    protected BeaconResponseMeta getMeta() {
+        final BeaconResponseMeta response_meta = new BeaconResponseMeta();
+        if (imeta != null) {
+            response_meta.setBeaconId(imeta.getBeaconId());
+            response_meta.setApiVersion(imeta.getApiVersion());
+        }
+        
+        if (default_schema != null) {
+            response_meta.setReturnedSchemas(Arrays.asList(default_schema));
+        }
+        return response_meta;
+    }
 }

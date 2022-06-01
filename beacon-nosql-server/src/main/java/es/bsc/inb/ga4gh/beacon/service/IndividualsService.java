@@ -37,6 +37,7 @@ import es.bsc.inb.ga4gh.beacon.query.IndividualsRepository;
 import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.nosql.mapping.Database;
 import jakarta.nosql.mapping.DatabaseType;
 import jakarta.nosql.mapping.Pagination;
@@ -49,6 +50,7 @@ import java.util.Optional;
  * @author Dmitry Repchevsky
  */
 
+@Named("individual")
 @ApplicationScoped
 public class IndividualsService 
         extends AbstractBeaconService<IndividualsRepository, IndividualsRequestParameters> {

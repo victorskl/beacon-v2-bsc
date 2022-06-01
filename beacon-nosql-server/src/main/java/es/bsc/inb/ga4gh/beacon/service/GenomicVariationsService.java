@@ -35,6 +35,7 @@ import java.util.List;
 import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.nosql.document.DocumentQuery;
 import jakarta.nosql.document.DocumentQuery.DocumentFrom;
 import jakarta.nosql.document.DocumentQuery.DocumentWhere;
@@ -46,6 +47,7 @@ import java.util.stream.Collectors;
  * @author Dmitry Repchevsky
  */
 
+@Named("genomicVariation")
 @ApplicationScoped
 public class GenomicVariationsService 
         extends AbstractBeaconService<VariantsRepository, GenomicVariationsRequestParameters>{
@@ -165,6 +167,7 @@ public class GenomicVariationsService
 
         return makeResponse(variants);
     }
+
     private DocumentWhere addEqCondition(DocumentFrom from, DocumentWhere where, String field, Object obj) {
         if (obj != null) {
             return where == null ? from.where(field).eq(obj) : where.and(field).eq(obj);

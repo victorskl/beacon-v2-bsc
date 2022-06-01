@@ -32,6 +32,7 @@ import es.bsc.inb.ga4gh.beacon.query.CohortsRepository;
 import es.bsc.inb.ga4gh.beacon.query.IndividualsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.nosql.mapping.Database;
 import jakarta.nosql.mapping.DatabaseType;
 import jakarta.nosql.mapping.Pagination;
@@ -41,6 +42,7 @@ import java.util.List;
  * @author Dmitry Repchevsky
  */
 
+@Named("cohort")
 @ApplicationScoped
 public class CohortsService 
         extends AbstractBeaconService<CohortsRepository, CohortsRequestParameters> {
