@@ -31,12 +31,14 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.EntryTypesResponse
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.ServiceConfiguration;
 import es.bsc.inb.ga4gh.beacon.framework.rest.BeaconEndpointInterface;
 import es.bsc.inb.ga4gh.service_info.model.v100.Service;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
  * @author Dmitry Repchevsky
  */
 
+@ApplicationScoped
 public class BeaconEndpoint implements BeaconEndpointInterface {
 
     @Inject

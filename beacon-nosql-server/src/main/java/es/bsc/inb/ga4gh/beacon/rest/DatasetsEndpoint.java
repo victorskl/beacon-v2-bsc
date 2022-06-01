@@ -31,12 +31,14 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconFilteringTer
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.rest.DatasetsEndpointInterface;
 import es.bsc.inb.ga4gh.beacon.service.DatasetsService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
  * @author Dmitry Repchevsky
  */
 
+@ApplicationScoped
 public class DatasetsEndpoint extends AbstractAsyncEndpoint
         implements DatasetsEndpointInterface {
 

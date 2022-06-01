@@ -33,12 +33,14 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsRe
 import es.bsc.inb.ga4gh.beacon.framework.rest.AnalysesEndpointInterface;
 import es.bsc.inb.ga4gh.beacon.service.AnalysesService;
 import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
  * @author Dmitry Repchevsky
  */
 
+@ApplicationScoped
 public class AnalysesEndpoint extends AbstractAsyncEndpoint 
         implements AnalysesEndpointInterface {
 
