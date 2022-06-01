@@ -28,6 +28,7 @@ package es.bsc.inb.ga4gh.beacon.service;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.SchemaPerEntity;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.SchemaReference;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.BeaconConfiguration;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.BeaconSecurityAttributes;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.ServiceConfiguration;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestParameters;
@@ -64,14 +65,26 @@ public abstract class AbstractBeaconService<K extends Repository,
     @Inject
     private ServiceConfiguration configuration;
 
-    private BeaconInformationalResponseMeta imeta;
-    private SchemaPerEntity default_schema;
+    private String beaconId;
+    private String apiVersion;
+    private String defaultGranularity;
+    private SchemaPerEntity defaultSchema;
     
     @PostConstruct
     public void init() {
-        imeta = configuration.getMeta();
+        BeaconInformationalResponseMeta meta = configuration.getMeta();
+        if (meta != null) {
+            beaconId = meta.getBeaconId();
+            apiVersion = meta.getApiVersion();
+        }
+        
         final BeaconConfiguration config = configuration.getResponse();
         if (config != null) {
+            final BeaconSecurityAttributes security_attributes = config.getSecurityAttributes();
+            if (security_attributes != null) {
+                defaultGranularity = security_attributes.getDefaultGranularity();
+            }
+            
             final Map<String, EntryTypeDefinition> entry_types = config.getEntryTypes();
             if (entry_types != null) {
                 final String name = manager.resolve(manager.getBeans(this.getClass())).getName();
@@ -79,9 +92,9 @@ public abstract class AbstractBeaconService<K extends Repository,
                 if (entry_type != null) {
                     final SchemaReference schema_ref = entry_type.getDefaultSchema();
                     if (schema_ref != null) {
-                        default_schema = new SchemaPerEntity();
-                        default_schema.setSchema(schema_ref.getReferenceToSchemaDefinition());
-                        default_schema.setEntityType(entry_type.getId());
+                        defaultSchema = new SchemaPerEntity();
+                        defaultSchema.setSchema(schema_ref.getReferenceToSchemaDefinition());
+                        defaultSchema.setEntityType(entry_type.getId());
                     }
                 }
             }
@@ -187,13 +200,15 @@ public abstract class AbstractBeaconService<K extends Repository,
 
     protected BeaconResponseMeta getMeta() {
         final BeaconResponseMeta response_meta = new BeaconResponseMeta();
-        if (imeta != null) {
-            response_meta.setBeaconId(imeta.getBeaconId());
-            response_meta.setApiVersion(imeta.getApiVersion());
-        }
-        
-        if (default_schema != null) {
-            response_meta.setReturnedSchemas(Arrays.asList(default_schema));
+
+        response_meta.setBeaconId(beaconId);
+        response_meta.setApiVersion(apiVersion);
+
+        // TODO: use requested granularity when implemented
+        response_meta.setReturnedGranularity(defaultGranularity);
+
+        if (defaultSchema != null) {
+            response_meta.setReturnedSchemas(Arrays.asList(defaultSchema));
         }
         return response_meta;
     }
