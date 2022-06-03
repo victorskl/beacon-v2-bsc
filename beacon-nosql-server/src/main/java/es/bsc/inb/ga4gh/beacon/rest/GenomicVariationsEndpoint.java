@@ -101,13 +101,13 @@ public class GenomicVariationsEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconResultsetsResponse getOneGenomicVariation(String id) {
-        return variants_service.getBeacon(id);
+        return variants_service.getBeacon(id, null);
     }
 
     @Override
     public BeaconResultsetsResponse postOneGenomicVariationRequest(
             String id, BeaconRequestBody request) {
-        return variants_service.getBeacon(id);
+        return variants_service.getBeacon(id, request);
     }
 
     @Override

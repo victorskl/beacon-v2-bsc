@@ -33,6 +33,7 @@ import es.bsc.inb.ga4gh.beacon.nosql.CaseLevelVariantEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.IndividualEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.VariantEntity;
 import es.bsc.inb.ga4gh.beacon.query.BiosamplesRepository;
+import es.bsc.inb.ga4gh.beacon.query.CohortsRepository;
 import es.bsc.inb.ga4gh.beacon.query.IndividualsRepository;
 import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -65,7 +66,7 @@ public class IndividualsService
 
     @Inject
     @Database(DatabaseType.DOCUMENT)
-    private BiosamplesRepository biosamples_repository;
+    private CohortsRepository cohorts_repository;
 
     @Override
     public IndividualsRepository getRepository() {
@@ -86,16 +87,17 @@ public class IndividualsService
         return null;
     }
     
-    public BeaconResultsetsResponse getGenomicVariationIndividuals(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse getGenomicVariationIndividuals(String id, 
+            BeaconRequestBody request) {
 
         final Optional<VariantEntity> variant = variants_repository.findById(id);
         if (variant == null || variant.isEmpty()) {
-            return makeResponse(Collections.EMPTY_LIST);
+            return makeResponse(Collections.EMPTY_LIST, request);
         }
         
         final List<CaseLevelVariantEntity> data = variant.get().getCaseLevelData();
         if (data == null || data.isEmpty()) {
-            return makeResponse(Collections.EMPTY_LIST);
+            return makeResponse(Collections.EMPTY_LIST, request);
         }
 
         final List<IndividualEntity> individuals = new ArrayList();
@@ -115,10 +117,11 @@ public class IndividualsService
                 }
             }
         }
-        return makeResponse(individuals);
+        return makeResponse(individuals, request);
     }
 
-    public BeaconResultsetsResponse getCohortIndividuals(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse getCohortIndividuals(String id, 
+            BeaconRequestBody request) {
         return null;
     }
 }

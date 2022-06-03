@@ -66,12 +66,12 @@ public class CohortsEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconResultsetsResponse getOneCohort(String id) {
-        return cohorts_service.getBeacon(id);
+        return cohorts_service.getBeacon(id, null);
     }
 
     @Override
     public BeaconResultsetsResponse postOneCohortRequest(String id, BeaconRequestBody request) {
-        return cohorts_service.getBeacon(id);
+        return cohorts_service.getBeacon(id, request);
     }
 
     @Override

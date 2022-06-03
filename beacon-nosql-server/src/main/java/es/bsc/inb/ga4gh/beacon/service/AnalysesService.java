@@ -68,7 +68,7 @@ public class AnalysesService extends AbstractBeaconService<AnalysesRepository, A
                 analyses_repository.findByRunId(id) : 
                 analyses_repository.findByRunId(id, pagination);
 
-        return makeResponse(variants);
+        return makeResponse(variants, request);
     }
     
     public BeaconResultsetsResponse getBiosampleAnalysis(String id, BeaconRequestBody request) {
@@ -78,6 +78,6 @@ public class AnalysesService extends AbstractBeaconService<AnalysesRepository, A
                 analyses_repository.findByBiosampleId(id) :
                 analyses_repository.findByBiosampleId(id, pagination);
 
-        return makeResponse(analyses);
+        return makeResponse(analyses, request);
     }
 }

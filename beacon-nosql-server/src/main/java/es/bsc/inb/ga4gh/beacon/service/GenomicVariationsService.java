@@ -135,7 +135,7 @@ public class GenomicVariationsService
                 variants_repository.findByAnalisisId(id, pagination);
         
 
-        return makeResponse(variants);
+        return makeResponse(variants, request);
     }
 
     public BeaconResultsetsResponse getIndividualGenomicVariants(String id, BeaconRequestBody request) {
@@ -145,7 +145,7 @@ public class GenomicVariationsService
                 variants_repository.findByIndividualId(id) : 
                 variants_repository.findByIndividualId(id, pagination);
 
-        return makeResponse(variants);
+        return makeResponse(variants, request);
     }
 
     public BeaconResultsetsResponse getBiosampleGenomicVariants(String id, BeaconRequestBody request) {
@@ -155,7 +155,7 @@ public class GenomicVariationsService
                 variants_repository.findByBiosampleId(id) : 
                 variants_repository.findByBiosampleId(id, pagination);
 
-        return makeResponse(variants);
+        return makeResponse(variants, request);
     }
 
     public BeaconResultsetsResponse getRunsGenomicVariants(String id, BeaconRequestBody request) {
@@ -165,7 +165,7 @@ public class GenomicVariationsService
                 variants_repository.findByRunId(id) : 
                 variants_repository.findByRunId(id, pagination);
 
-        return makeResponse(variants);
+        return makeResponse(variants, request);
     }
 
     private DocumentWhere addEqCondition(DocumentFrom from, DocumentWhere where, String field, Object obj) {

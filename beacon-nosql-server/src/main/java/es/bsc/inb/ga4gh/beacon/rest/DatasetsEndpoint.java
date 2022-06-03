@@ -59,12 +59,12 @@ public class DatasetsEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconResultsetsResponse getOneDataset(String id) {
-        return datasets_service.getBeacon(id);
+        return datasets_service.getBeacon(id, null);
     }
 
     @Override
     public BeaconResultsetsResponse postOneDatasetRequest(String id, BeaconRequestBody request) {
-        return datasets_service.getBeacon(id);
+        return datasets_service.getBeacon(id, request);
     }
 
     @Override

@@ -78,12 +78,14 @@ public class IndividualsEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconResultsetsResponse getOneIndividual(String id) {
-        return individuals_service.getBeacon(id);
+        return individuals_service.getBeacon(id, null);
     }
 
     @Override
-    public BeaconResultsetsResponse postOneIndividualRequest(String id, BeaconRequestBody request) {
-        return individuals_service.getBeacon(id);
+    public BeaconResultsetsResponse postOneIndividualRequest(
+            String id, BeaconRequestBody request) {
+
+        return individuals_service.getBeacon(id, request);
     }
 
     @Override

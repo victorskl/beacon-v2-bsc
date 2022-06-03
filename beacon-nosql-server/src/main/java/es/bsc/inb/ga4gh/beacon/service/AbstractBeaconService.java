@@ -30,10 +30,13 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.SchemaReference;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.BeaconConfiguration;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.BeaconSecurityAttributes;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.ServiceConfiguration;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconQueryFilter;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestMeta;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInformationalResponseMeta;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconReceivedRequestSummary;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResponseMeta;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResponseSummary;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultset;
@@ -49,6 +52,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Dmitry Repchevsky
@@ -105,7 +109,9 @@ public abstract class AbstractBeaconService<K extends Repository,
     
     protected abstract List findEntities(L params, Pagination pagination);
     
-    public BeaconResultsetsResponse getBeacon(final String id) {
+    public BeaconResultsetsResponse getBeacon(
+            String id, BeaconRequestBody request) {
+
         try {
             Optional entity = getRepository().findById(id);
 
@@ -125,7 +131,7 @@ public abstract class AbstractBeaconService<K extends Repository,
                 resultsets.setResultSets(Arrays.asList(resultset));
 
                 response.setResponse(resultsets);
-                response.setMeta(getMeta());
+                response.setMeta(getMeta(request));
             }
             return response;
         } catch (Throwable th) {
@@ -134,7 +140,7 @@ public abstract class AbstractBeaconService<K extends Repository,
         return null;
     }
 
-    public BeaconResultsetsResponse getBeacon(final BeaconRequestBody request) {
+    public BeaconResultsetsResponse getBeacon(BeaconRequestBody request) {
         try {
             final Pagination pagination = getPagination(request);
             
@@ -144,7 +150,7 @@ public abstract class AbstractBeaconService<K extends Repository,
           
             final List beacons = findEntities(params, pagination);
 
-            return makeResponse(beacons);
+            return makeResponse(beacons, request);
         } catch (Throwable th) {
             th.printStackTrace();
         }
@@ -158,7 +164,7 @@ public abstract class AbstractBeaconService<K extends Repository,
      * @param request Beacon request object
      * @return Jakarta NoSQL pagination object or null
      */
-    protected Pagination getPagination(final BeaconRequestBody request) {
+    protected Pagination getPagination(BeaconRequestBody request) {
         if (request != null) {
             final BeaconRequestQuery<L> request_query = request.getQuery();
             if (request_query != null) {
@@ -176,7 +182,8 @@ public abstract class AbstractBeaconService<K extends Repository,
         return null;
     }
     
-    protected BeaconResultsetsResponse makeResponse(List beacons) {
+    protected BeaconResultsetsResponse makeResponse(
+            List beacons, BeaconRequestBody request) {
         BeaconResultsetsResponse response = new BeaconResultsetsResponse();
 
         if (beacons.isEmpty()) {
@@ -194,13 +201,40 @@ public abstract class AbstractBeaconService<K extends Repository,
 
             response.setResponse(resultsets);
         }
-        response.setMeta(getMeta());
+        response.setMeta(getMeta(request));
         return response;
     }
 
-    protected BeaconResponseMeta getMeta() {
+    protected BeaconResponseMeta getMeta(BeaconRequestBody request) {
         final BeaconResponseMeta response_meta = new BeaconResponseMeta();
 
+        final BeaconReceivedRequestSummary request_summary = 
+                new BeaconReceivedRequestSummary();
+
+        if (request != null) {
+
+            final BeaconRequestMeta request_meta = request.getMeta();
+            if (request_meta != null) {
+                request_summary.setApiVersion(request_meta.getApiVersion());
+            }
+            final BeaconRequestQuery request_query = request.getQuery();  
+            if (request_query != null) {
+                request_summary.setPagination(request_query.getPagination());
+                request_summary.setBeaconRequestParameters(request_query.getRequestParameters());
+                
+                final List<BeaconQueryFilter> filters = request_query.getFilters();
+                if (filters != null) {
+                    request_summary.setFilters(filters.stream()
+                            .map(BeaconQueryFilter::toString)
+                            .collect(Collectors.toList()));
+                }
+
+                request_summary.setRequestedGranularity(request_query.getGranularity());
+                request_summary.setTestMode(request_query.getTestMode());
+            }
+
+        }
+      
         response_meta.setBeaconId(beaconId);
         response_meta.setApiVersion(apiVersion);
 

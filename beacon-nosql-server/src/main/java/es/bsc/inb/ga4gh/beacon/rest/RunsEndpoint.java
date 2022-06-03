@@ -77,14 +77,14 @@ public class RunsEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconResultsetsResponse getOneRun(String id) {
-        return runs_service.getBeacon(id);
+        return runs_service.getBeacon(id, null);
     }
 
     @Override
     public BeaconResultsetsResponse postOneRun(String id, 
             BeaconRequestBody request) {
 
-        return runs_service.getBeacon(id);
+        return runs_service.getBeacon(id, request);
     }
 
     @Override

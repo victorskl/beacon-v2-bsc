@@ -77,12 +77,12 @@ public class BiosamplesService
 
         final Optional<VariantEntity> variant = variants_repository.findById(id);
         if (variant == null || variant.isEmpty()) {
-            return makeResponse(Collections.EMPTY_LIST);
+            return makeResponse(Collections.EMPTY_LIST, request);
         }
         
         final List<CaseLevelVariantEntity> data = variant.get().getCaseLevelData();
         if (data == null || data.isEmpty()) {
-            return makeResponse(Collections.EMPTY_LIST);
+            return makeResponse(Collections.EMPTY_LIST, request);
         }
 
         final List<BiosampleEntity> biosamples = new ArrayList();
@@ -102,7 +102,7 @@ public class BiosamplesService
                 }
             }
         }
-        return makeResponse(biosamples);
+        return makeResponse(biosamples, request);
     }
 
     public BeaconResultsetsResponse getIndividualBiosamples(String id, BeaconRequestBody request) {
@@ -112,6 +112,6 @@ public class BiosamplesService
                 biosamples_repository.findByIndividualId(id) : 
                 biosamples_repository.findByIndividualId(id, pagination);
 
-        return makeResponse(variants);
+        return makeResponse(variants, request);
     }
 }

@@ -29,9 +29,7 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.RunsRequestParameters;
 import es.bsc.inb.ga4gh.beacon.nosql.RunEntity;
-import es.bsc.inb.ga4gh.beacon.query.AnalysesRepository;
 import es.bsc.inb.ga4gh.beacon.query.RunsRepository;
-import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -72,6 +70,6 @@ public class RunsService
                 runs_repository.findByBiosampleId(id) :
                 runs_repository.findByBiosampleId(id, pagination);
 
-        return makeResponse(runs);
+        return makeResponse(runs, request);
     }
 }

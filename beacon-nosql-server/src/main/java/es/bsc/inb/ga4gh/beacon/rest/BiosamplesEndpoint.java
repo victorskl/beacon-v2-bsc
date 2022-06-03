@@ -87,13 +87,13 @@ public class BiosamplesEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconResultsetsResponse getOneBiosample(String id) {
-        return biosamples_service.getBeacon(id);
+        return biosamples_service.getBeacon(id, null);
     }
 
     @Override
     public BeaconResultsetsResponse postOneBiosampleRequest(
             String id, BeaconRequestBody request) {
-        return biosamples_service.getBeacon(id);
+        return biosamples_service.getBeacon(id, request);
     }
 
     @Override

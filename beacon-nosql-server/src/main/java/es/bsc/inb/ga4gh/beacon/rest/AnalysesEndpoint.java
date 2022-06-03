@@ -74,14 +74,14 @@ public class AnalysesEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconResultsetsResponse getOneAnalysis(String id) {
-        return analyses_service.getBeacon(id);
+        return analyses_service.getBeacon(id, null);
     }
 
     @Override
     public BeaconResultsetsResponse postOneAnalysisRequest(String id, 
             BeaconRequestBody request) {
 
-        return analyses_service.getBeacon(id);
+        return analyses_service.getBeacon(id, request);
     }
 
     @Override
