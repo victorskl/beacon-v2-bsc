@@ -25,7 +25,10 @@
 
 package es.bsc.inb.ga4gh.beacon.rest;
 
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.DatasetsRequestParameters;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.Pagination;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconCollectionsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconFilteringTermsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
@@ -47,14 +50,21 @@ public class DatasetsEndpoint extends AbstractAsyncEndpoint
     
     @Override
     public BeaconCollectionsResponse getDatasets(String requested_schema, Integer skip, Integer limit) {
-        BeaconCollectionsResponse response = new BeaconCollectionsResponse();
-        return response;
+       BeaconRequestQuery query = new BeaconRequestQuery<DatasetsRequestParameters>();
+        if (skip != null || limit != null) {
+            query.setPagination(new Pagination(skip, limit));
+        }
+        
+        BeaconRequestBody request = new BeaconRequestBody();
+        request.setQuery(query);
+        request.setSchema(requested_schema);
+
+        return datasets_service.getDatasets(request);
     }
 
     @Override
     public BeaconCollectionsResponse postDatasetsRequest(BeaconRequestBody request) {
-        BeaconCollectionsResponse response = new BeaconCollectionsResponse();
-        return response;
+        return datasets_service.getDatasets(request);
     }
 
     @Override
@@ -63,48 +73,55 @@ public class DatasetsEndpoint extends AbstractAsyncEndpoint
     }
 
     @Override
-    public BeaconResultsetsResponse postOneDatasetRequest(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse postOneDatasetRequest(
+            String id, BeaconRequestBody request) {
         return datasets_service.getBeacon(id, request);
     }
 
     @Override
-    public BeaconResultsetsResponse getOneDatasetGenomicVariants(String id, String requested_schema, Integer skip, Integer limit) {
+    public BeaconResultsetsResponse getOneDatasetGenomicVariants(
+            String id, String requested_schema, Integer skip, Integer limit) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public BeaconResultsetsResponse postOneDatasetGenomicVariantsRequest(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse postOneDatasetGenomicVariantsRequest(
+            String id, BeaconRequestBody request) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public BeaconResultsetsResponse getOneDatasetBiosamples(String id, String requested_schema, Integer skip, Integer limit) {
+    public BeaconResultsetsResponse getOneDatasetBiosamples(
+            String id, String requested_schema, Integer skip, Integer limit) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public BeaconResultsetsResponse postOneDatasetBiosamplesRequest(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse postOneDatasetBiosamplesRequest(
+            String id, BeaconRequestBody request) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public BeaconResultsetsResponse getOneDatasetIndividuals(String id, String requested_schema, Integer skip, Integer limit) {
+    public BeaconResultsetsResponse getOneDatasetIndividuals(
+            String id, String requested_schema, Integer skip, Integer limit) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public BeaconResultsetsResponse postOneDatasetIndividualsRequest(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse postOneDatasetIndividualsRequest(
+            String id, BeaconRequestBody request) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public BeaconFilteringTermsResponse getOneDatasetFilteringTerms(Integer skip, Integer limit) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new BeaconFilteringTermsResponse();
     }
 
     @Override
     public BeaconFilteringTermsResponse postOneDatasetFilteringTermsRequest(BeaconRequestBody request) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new BeaconFilteringTermsResponse();
     }
     
 }

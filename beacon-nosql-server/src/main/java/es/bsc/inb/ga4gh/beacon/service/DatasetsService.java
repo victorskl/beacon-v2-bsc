@@ -26,6 +26,9 @@
 package es.bsc.inb.ga4gh.beacon.service;
 
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.DatasetsRequestParameters;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconCollectionsResponse;
 import es.bsc.inb.ga4gh.beacon.query.DatasetsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -58,4 +61,20 @@ public class DatasetsService
         return pagination == null ? datsets_repository.findAll() : datsets_repository.findAll(pagination);
     }
     
+    public BeaconCollectionsResponse getDatasets(BeaconRequestBody request) {
+        try {
+            final Pagination pagination = getPagination(request);
+            
+            final BeaconRequestQuery<DatasetsRequestParameters> request_query = request.getQuery();
+            final DatasetsRequestParameters params = request_query == null ? null : 
+                    request_query.getRequestParameters();
+          
+            final List beacons = findEntities(params, pagination);
+
+            return makeCollectionsResponse(beacons, request);
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
+        return null;
+    }
 }

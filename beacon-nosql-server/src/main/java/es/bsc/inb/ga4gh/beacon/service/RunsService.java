@@ -70,6 +70,6 @@ public class RunsService
                 runs_repository.findByBiosampleId(id) :
                 runs_repository.findByBiosampleId(id, pagination);
 
-        return makeResponse(runs, request);
+        return makeResultsetsResponse(runs, request);
     }
 }

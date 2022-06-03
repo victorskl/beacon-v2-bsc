@@ -44,7 +44,8 @@ import java.util.List;
 
 @Named("analysis")
 @ApplicationScoped
-public class AnalysesService extends AbstractBeaconService<AnalysesRepository, AnalysesRequestParameters> {
+public class AnalysesService extends AbstractBeaconService<AnalysesRepository, 
+        AnalysesRequestParameters> {
 
     @Inject
     @Database(DatabaseType.DOCUMENT)
@@ -68,7 +69,7 @@ public class AnalysesService extends AbstractBeaconService<AnalysesRepository, A
                 analyses_repository.findByRunId(id) : 
                 analyses_repository.findByRunId(id, pagination);
 
-        return makeResponse(variants, request);
+        return makeResultsetsResponse(variants, request);
     }
     
     public BeaconResultsetsResponse getBiosampleAnalysis(String id, BeaconRequestBody request) {
@@ -78,6 +79,6 @@ public class AnalysesService extends AbstractBeaconService<AnalysesRepository, A
                 analyses_repository.findByBiosampleId(id) :
                 analyses_repository.findByBiosampleId(id, pagination);
 
-        return makeResponse(analyses, request);
+        return makeResultsetsResponse(analyses, request);
     }
 }

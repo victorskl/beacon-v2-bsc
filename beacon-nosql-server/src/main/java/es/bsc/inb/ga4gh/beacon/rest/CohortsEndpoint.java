@@ -25,6 +25,7 @@
 
 package es.bsc.inb.ga4gh.beacon.rest;
 
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.CohortsRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.IndividualsRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.Pagination;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
@@ -54,14 +55,21 @@ public class CohortsEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconCollectionsResponse getCohorts(String requested_schema, Integer skip, Integer limit) {
-        BeaconCollectionsResponse response = new BeaconCollectionsResponse();
-        return response;
+       BeaconRequestQuery query = new BeaconRequestQuery<CohortsRequestParameters>();
+        if (skip != null || limit != null) {
+            query.setPagination(new Pagination(skip, limit));
+        }
+        
+        BeaconRequestBody request = new BeaconRequestBody();
+        request.setQuery(query);
+        request.setSchema(requested_schema);
+
+        return cohorts_service.getCohorts(request);
     }
 
     @Override
     public BeaconCollectionsResponse postCohortsRequest(BeaconRequestBody request) {
-        BeaconCollectionsResponse response = new BeaconCollectionsResponse();
-        return response;
+        return cohorts_service.getCohorts(request);
     }
 
     @Override
@@ -95,12 +103,12 @@ public class CohortsEndpoint extends AbstractAsyncEndpoint
 
     @Override
     public BeaconFilteringTermsResponse getOneCohortFilteringTerms(String id, Integer skip, Integer limit) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new BeaconFilteringTermsResponse();
     }
 
     @Override
     public BeaconFilteringTermsResponse postOneCohortFilteringTermsRequest(String id, BeaconRequestBody request) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new BeaconFilteringTermsResponse();
     }
     
 }

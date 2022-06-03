@@ -26,10 +26,10 @@
 package es.bsc.inb.ga4gh.beacon.service;
 
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
-import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.CohortsRequestParameters;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconCollectionsResponse;
 import es.bsc.inb.ga4gh.beacon.query.CohortsRepository;
-import es.bsc.inb.ga4gh.beacon.query.IndividualsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -62,4 +62,22 @@ public class CohortsService
 
         return pagination == null ? cohorts_repository.findAll() : cohorts_repository.findAll(pagination);
     }
+    
+    public BeaconCollectionsResponse getCohorts(BeaconRequestBody request) {
+        try {
+            final Pagination pagination = getPagination(request);
+            
+            final BeaconRequestQuery<CohortsRequestParameters> request_query = request.getQuery();
+            final CohortsRequestParameters params = request_query == null ? null : 
+                    request_query.getRequestParameters();
+          
+            final List beacons = findEntities(params, pagination);
+
+            return makeCollectionsResponse(beacons, request);
+        } catch (Throwable th) {
+            th.printStackTrace();
+        }
+        return null;
+    }
+
 }

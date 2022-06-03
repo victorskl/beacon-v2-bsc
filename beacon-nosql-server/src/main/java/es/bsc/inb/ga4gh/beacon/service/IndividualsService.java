@@ -80,7 +80,7 @@ public class IndividualsService
         return pagination == null ? individuals_repository.findAll() : individuals_repository.findAll(pagination);
     }
 
-    public BeaconResultsetsResponse getIndividuals(final BeaconRequestBody request) {
+    public BeaconResultsetsResponse getIndividuals(BeaconRequestBody request) {
         final BeaconRequestQuery request_query = request.getQuery();
         
         request_query.getFilters();
@@ -92,12 +92,12 @@ public class IndividualsService
 
         final Optional<VariantEntity> variant = variants_repository.findById(id);
         if (variant == null || variant.isEmpty()) {
-            return makeResponse(Collections.EMPTY_LIST, request);
+            return makeResultsetsResponse(Collections.EMPTY_LIST, request);
         }
         
         final List<CaseLevelVariantEntity> data = variant.get().getCaseLevelData();
         if (data == null || data.isEmpty()) {
-            return makeResponse(Collections.EMPTY_LIST, request);
+            return makeResultsetsResponse(Collections.EMPTY_LIST, request);
         }
 
         final List<IndividualEntity> individuals = new ArrayList();
@@ -117,7 +117,7 @@ public class IndividualsService
                 }
             }
         }
-        return makeResponse(individuals, request);
+        return makeResultsetsResponse(individuals, request);
     }
 
     public BeaconResultsetsResponse getCohortIndividuals(String id, 

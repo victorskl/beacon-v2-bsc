@@ -35,6 +35,7 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestMeta;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconCollectionsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInformationalResponseMeta;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconReceivedRequestSummary;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResponseMeta;
@@ -150,12 +151,11 @@ public abstract class AbstractBeaconService<K extends Repository,
           
             final List beacons = findEntities(params, pagination);
 
-            return makeResponse(beacons, request);
+            return makeResultsetsResponse(beacons, request);
         } catch (Throwable th) {
             th.printStackTrace();
         }
         return null;
-
     }
 
     /**
@@ -182,7 +182,7 @@ public abstract class AbstractBeaconService<K extends Repository,
         return null;
     }
     
-    protected BeaconResultsetsResponse makeResponse(
+    protected BeaconResultsetsResponse makeResultsetsResponse(
             List beacons, BeaconRequestBody request) {
         BeaconResultsetsResponse response = new BeaconResultsetsResponse();
 
@@ -200,6 +200,29 @@ public abstract class AbstractBeaconService<K extends Repository,
             resultsets.setResultSets(Arrays.asList(resultset));
 
             response.setResponse(resultsets);
+        }
+        response.setMeta(getMeta(request));
+        return response;
+    }
+
+    protected BeaconCollectionsResponse makeCollectionsResponse(
+            List beacons, BeaconRequestBody request) {
+        BeaconCollectionsResponse response = new BeaconCollectionsResponse();
+
+        if (beacons.isEmpty()) {
+            response.setResponseSummary(new BeaconResponseSummary(false));
+        } else {
+            response.setResponseSummary(new BeaconResponseSummary(beacons.size()));
+
+            BeaconResultset resultset = new BeaconResultset();
+            resultset.setExists(true);
+            resultset.setResultsCount(beacons.size());
+            resultset.setResults(beacons);
+
+            BeaconResultsets resultsets = new BeaconResultsets();
+            resultsets.setResultSets(Arrays.asList(resultset));
+
+            //response.setResponse(resultsets);
         }
         response.setMeta(getMeta(request));
         return response;
@@ -232,8 +255,8 @@ public abstract class AbstractBeaconService<K extends Repository,
                 request_summary.setRequestedGranularity(request_query.getGranularity());
                 request_summary.setTestMode(request_query.getTestMode());
             }
-
         }
+        response_meta.setReceivedRequestSummary(request_summary);
       
         response_meta.setBeaconId(beaconId);
         response_meta.setApiVersion(apiVersion);
