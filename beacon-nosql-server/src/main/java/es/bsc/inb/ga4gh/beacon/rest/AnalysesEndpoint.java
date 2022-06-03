@@ -54,10 +54,12 @@ public class AnalysesEndpoint extends AbstractAsyncEndpoint
     public BeaconResultsetsResponse getAnalyses(
             String requested_schema, Integer skip, Integer limit, String include_responses) {
 
-        BeaconRequestQuery query = new BeaconRequestQuery<AnalysesRequestParameters>();
-        if (skip != null || limit != null) {
-            query.setPagination(new Pagination(skip, limit));
+        if (limit == null) {
+            limit = 3; // limit 
         }
+
+        BeaconRequestQuery query = new BeaconRequestQuery<AnalysesRequestParameters>();
+        query.setPagination(new Pagination(skip, limit));    
         query.setIncludeResultsetResponses(include_responses);
         
         BeaconRequestBody request = new BeaconRequestBody();

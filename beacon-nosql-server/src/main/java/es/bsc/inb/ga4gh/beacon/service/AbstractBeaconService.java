@@ -234,8 +234,9 @@ public abstract class AbstractBeaconService<K extends Repository,
         final BeaconReceivedRequestSummary request_summary = 
                 new BeaconReceivedRequestSummary();
 
-        if (request != null) {
-
+        if (request == null) {
+            request_summary.setApiVersion(apiVersion);
+        } else {
             final BeaconRequestMeta request_meta = request.getMeta();
             if (request_meta != null) {
                 request_summary.setApiVersion(request_meta.getApiVersion());

@@ -58,10 +58,12 @@ public class RunsEndpoint extends AbstractAsyncEndpoint
     public BeaconResultsetsResponse getRuns(String requested_schema, 
             Integer skip, Integer limit, String include_responses) {
 
-        BeaconRequestQuery query = new BeaconRequestQuery<RunsRequestParameters>();
-        if (skip != null || limit != null) {
-            query.setPagination(new Pagination(skip, limit));
+        if (limit == null) {
+            limit = 3; // limit 
         }
+
+        BeaconRequestQuery query = new BeaconRequestQuery<RunsRequestParameters>();
+        query.setPagination(new Pagination(skip, limit));
         
         BeaconRequestBody request = new BeaconRequestBody();
         request.setQuery(query);

@@ -55,22 +55,15 @@ public class GenomicVariationsEndpoint extends AbstractAsyncEndpoint
     private IndividualsService individuals_service;
 
     @Override
-    public BeaconResultsetsResponse getGenomicVariations(
-            String requested_schema,
-            Integer skip,
-            Integer limit,
-            String include_responses,
-            long[] start,
-            long[] end,
-            String assembly_id,
-            String reference_name,
-            String reference_bases,
-            String alternate_bases,
-            Long variant_min_length,
-            Long variant_max_length,
-            String genomic_allele_short_form,
-            String gene_id,
-            String aminoacid_change) {
+    public BeaconResultsetsResponse getGenomicVariations(String requested_schema,
+            Integer skip, Integer limit, String include_responses, long[] start,
+            long[] end, String assembly_id, String reference_name, String reference_bases,
+            String alternate_bases, Long variant_min_length, Long variant_max_length,
+            String genomic_allele_short_form, String gene_id, String aminoacid_change) {
+
+        if (limit == null) {
+            limit = 3; // limit 
+        }
 
         GenomicVariationsRequestParameters params = new GenomicVariationsRequestParameters();
         params.setStart(start);
@@ -86,6 +79,7 @@ public class GenomicVariationsEndpoint extends AbstractAsyncEndpoint
         params.setAminoacidChange(aminoacid_change);
         
         BeaconRequestQuery query = new BeaconRequestQuery();
+        query.setPagination(new Pagination(skip, limit));
         query.setRequestParameters(params);
         
         BeaconRequestBody request = new BeaconRequestBody();

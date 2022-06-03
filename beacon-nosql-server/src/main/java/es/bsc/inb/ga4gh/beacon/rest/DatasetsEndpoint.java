@@ -49,11 +49,15 @@ public class DatasetsEndpoint extends AbstractAsyncEndpoint
     private DatasetsService datasets_service;
     
     @Override
-    public BeaconCollectionsResponse getDatasets(String requested_schema, Integer skip, Integer limit) {
-       BeaconRequestQuery query = new BeaconRequestQuery<DatasetsRequestParameters>();
-        if (skip != null || limit != null) {
-            query.setPagination(new Pagination(skip, limit));
+    public BeaconCollectionsResponse getDatasets(String requested_schema, 
+            Integer skip, Integer limit) {
+        
+        if (limit == null) {
+            limit = 3; // limit 
         }
+        
+        BeaconRequestQuery query = new BeaconRequestQuery<DatasetsRequestParameters>();
+        query.setPagination(new Pagination(skip, limit));
         
         BeaconRequestBody request = new BeaconRequestBody();
         request.setQuery(query);

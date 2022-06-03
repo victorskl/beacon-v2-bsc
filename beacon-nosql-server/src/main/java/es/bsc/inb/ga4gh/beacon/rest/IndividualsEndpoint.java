@@ -92,10 +92,12 @@ public class IndividualsEndpoint extends AbstractAsyncEndpoint
     public BeaconResultsetsResponse getOneIndividualGenomicVariants(String id, 
             String requested_schema, Integer skip, Integer limit) {
 
-        BeaconRequestQuery query = new BeaconRequestQuery<IndividualsRequestParameters>();
-        if (skip != null || limit != null) {
-            query.setPagination(new Pagination(skip, limit));
+        if (limit == null) {
+            limit = 3; // limit 
         }
+
+        BeaconRequestQuery query = new BeaconRequestQuery<IndividualsRequestParameters>();
+        query.setPagination(new Pagination(skip, limit));
         
         BeaconRequestBody request = new BeaconRequestBody();
         request.setQuery(query);

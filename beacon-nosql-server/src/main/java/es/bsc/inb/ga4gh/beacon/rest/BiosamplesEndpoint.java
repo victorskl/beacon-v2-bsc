@@ -59,16 +59,15 @@ public class BiosamplesEndpoint extends AbstractAsyncEndpoint
     private GenomicVariationsService variants_service;
     
     @Override
-    public BeaconResultsetsResponse getBiosamples(
-            String requested_schema, 
-            Integer skip, 
-            Integer limit, 
-            String include_responses) {
+    public BeaconResultsetsResponse getBiosamples(String requested_schema, 
+            Integer skip, Integer limit, String include_responses) {
         
-        BeaconRequestQuery query = new BeaconRequestQuery<BiosamplesRequestParameters>();
-        if (skip != null || limit != null) {
-            query.setPagination(new Pagination(skip, limit));
+        if (limit == null) {
+            limit = 3; // limit 
         }
+
+        BeaconRequestQuery query = new BeaconRequestQuery<BiosamplesRequestParameters>();
+        query.setPagination(new Pagination(skip, limit));
         query.setIncludeResultsetResponses(include_responses);
         
         BeaconRequestBody request = new BeaconRequestBody();

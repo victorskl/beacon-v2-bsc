@@ -54,11 +54,15 @@ public class CohortsEndpoint extends AbstractAsyncEndpoint
     private IndividualsService individuals_service;
 
     @Override
-    public BeaconCollectionsResponse getCohorts(String requested_schema, Integer skip, Integer limit) {
-       BeaconRequestQuery query = new BeaconRequestQuery<CohortsRequestParameters>();
-        if (skip != null || limit != null) {
-            query.setPagination(new Pagination(skip, limit));
+    public BeaconCollectionsResponse getCohorts(String requested_schema, 
+            Integer skip, Integer limit) {
+        
+        if (limit == null) {
+            limit = 3; // limit 
         }
+        
+        BeaconRequestQuery query = new BeaconRequestQuery<CohortsRequestParameters>();
+        query.setPagination(new Pagination(skip, limit));
         
         BeaconRequestBody request = new BeaconRequestBody();
         request.setQuery(query);
