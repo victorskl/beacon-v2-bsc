@@ -2,7 +2,37 @@
     "$schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-framework-v2/main/responses/beaconInfoResponse.json",
     "meta": {
         "apiVersion": "v2.0.0",
-        "beaconId": "es.elixir.bsc.beacon"
+        "beaconId": "es.elixir.bsc.beacon",
+        "returnedSchemas": [
+          {
+            "entityType": "analysis",
+            "schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2-Models/main/BEACON-V2-Model/analyses/defaultSchema.json"
+          },
+          {
+            "entityType": "biosample",
+            "schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2-Models/main/BEACON-V2-Model/biosamples/defaultSchema.json"
+          },
+          {
+            "entityType": "cohort",
+            "schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2-Models/main/BEACON-V2-Model/cohorts/defaultSchema.json"
+          },
+          {
+            "entityType": "dataset",
+            "schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2-Models/main/BEACON-V2-Model/datasets/defaultSchema.json"
+          },
+          {
+            "entityType": "genomicVariation",
+            "schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2-Models/main/BEACON-V2-Model/genomicVariations/defaultSchema.json"
+          },
+          {
+            "entityType": "individual",
+            "schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2-Models/main/BEACON-V2-Model/individuals/defaultSchema.json"
+          },
+          {
+            "entityType": "run",
+            "schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2-Models/main/BEACON-V2-Model/runs/defaultSchema.json"
+          }
+        ]
     },
     "response": {
         "alternativeUrl": "https://inb.bsc.es",
