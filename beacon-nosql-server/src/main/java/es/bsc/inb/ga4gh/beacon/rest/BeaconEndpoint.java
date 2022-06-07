@@ -27,7 +27,7 @@ package es.bsc.inb.ga4gh.beacon.rest;
 
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInfoResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconMapResponse;
-import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.EntryTypesResponse;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconEntryTypesResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.ServiceConfiguration;
 import es.bsc.inb.ga4gh.beacon.framework.rest.BeaconEndpointInterface;
 import es.bsc.inb.ga4gh.service_info.model.v100.Service;
@@ -49,6 +49,9 @@ public class BeaconEndpoint implements BeaconEndpointInterface {
     
     @Inject
     private ServiceConfiguration service_configuration;
+
+    @Inject
+    private BeaconEntryTypesResponse entry_types;
     
     @Override
     public BeaconInfoResponse getBeaconInfoRoot(String requestedSchema) {
@@ -76,8 +79,8 @@ public class BeaconEndpoint implements BeaconEndpointInterface {
     }
 
     @Override
-    public EntryTypesResponse getEntryTypes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public BeaconEntryTypesResponse getEntryTypes() {
+        return entry_types;
     }
-    
+
 }
