@@ -65,19 +65,39 @@ public class GenomicVariationsService
     }
     
     @Override
+    protected long countEntities(GenomicVariationsRequestParameters params, Pagination pagination) {
+
+        DocumentWhere query = prepareQuery(params, pagination);
+        if (query == null) {
+            return variants_repository.count();
+        }
+
+        return template.select(query.build()).count();
+    }
+
+    @Override
     protected List findEntities(GenomicVariationsRequestParameters params, 
             Pagination pagination) {
 
-        if (params == null && pagination == null) {
-            return variants_repository.findAll();
-        } else if (params == null) {
-            return variants_repository.findAll(pagination);
+        DocumentWhere query = prepareQuery(params, pagination);
+        if (query == null) {
+            return pagination == null ? variants_repository.findAll() :
+                                        variants_repository.findAll(pagination);
         }
 
-        DocumentQuery.DocumentFrom from = DocumentQuery.select().from("Variants");
-        
+        return template.select(query.build()).collect(Collectors.toList());
+    }
+
+    private DocumentWhere prepareQuery(GenomicVariationsRequestParameters params, Pagination pagination) {
+
+        if (params == null) {
+            return null;
+        }
+
         DocumentWhere query = null;
-        
+
+        DocumentQuery.DocumentFrom from = DocumentQuery.select().from("Variants");
+
         query = addEqCondition(from, query, "variantType", params.getVariantType());
         
         query = addEqCondition(from, query, "referenceBases", params.getReferenceBases());
@@ -107,12 +127,7 @@ public class GenomicVariationsService
         query = addEqCondition(from, query, "molecularAttributes.geneIds", params.getGeneId());
         query = addEqCondition(from, query, "molecularAttributes.aminoacidChanges", params.getAminoacidChange());
         
-        if (query == null) {
-            return pagination == null ? variants_repository.findAll() :
-                                        variants_repository.findAll(pagination);
-        }
-        
-        if (pagination != null) {
+        if (query != null && pagination != null) {
             final long skip = pagination.getSkip();
             if (skip > 0) {
                 query.skip(skip);
@@ -122,8 +137,7 @@ public class GenomicVariationsService
                 query.limit(limit);
             }
         }
-
-        return template.select(query.build()).collect(Collectors.toList());
+        return query;
     }
     
     public BeaconResultsetsResponse getAnalysisGenomicVariants(String id, BeaconRequestBody request) {

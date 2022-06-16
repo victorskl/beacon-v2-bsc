@@ -25,6 +25,7 @@
 
 package es.bsc.inb.ga4gh.beacon.service;
 
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.Granularity;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.SchemaPerEntity;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.common.SchemaReference;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.BeaconConfiguration;
@@ -108,6 +109,10 @@ public abstract class AbstractBeaconService<K extends Repository,
 
     public abstract K getRepository();
     
+    protected long countEntities(L params, Pagination pagination) {
+        return getRepository().count();
+    }
+
     protected abstract List findEntities(L params, Pagination pagination);
     
     public BeaconResultsetsResponse getBeacon(
@@ -146,12 +151,20 @@ public abstract class AbstractBeaconService<K extends Repository,
             final Pagination pagination = getPagination(request);
             
             final BeaconRequestQuery<L> request_query = request.getQuery();
+
             final L params = request_query == null ? null : 
                     request_query.getRequestParameters();
           
-            final List beacons = findEntities(params, pagination);
-
-            return makeResultsetsResponse(beacons, request);
+            final Granularity granularity = getGranularity(request);
+            if (granularity == null || granularity == Granularity.RECORD) {
+                final List beacons = findEntities(params, pagination);
+                return makeResultsetsResponse(beacons, request);
+            }
+            
+            if (granularity == Granularity.COUNT) {
+                final long count = countEntities(params, pagination);
+                return makeResultsetsResponse(count, request);
+            }
         } catch (Throwable th) {
             th.printStackTrace();
         }
@@ -181,7 +194,58 @@ public abstract class AbstractBeaconService<K extends Repository,
         }
         return null;
     }
-    
+
+    /**
+     * Auxiliary method to get granularity the Beacon request.
+     * If no granularity found in request, defaultGranularity from configuration 
+     * is returned.
+     * 
+     * @param request Beacon request object
+     * @return granularity enum
+     */    
+    protected Granularity getGranularity(BeaconRequestBody request) {
+        if (request != null) {
+            final BeaconRequestQuery<L> request_query = request.getQuery();
+            if (request_query != null) {
+                final String granularity = request_query.getGranularity();
+                if (granularity != null) {
+                    try {
+                        return Granularity.getGranularity(granularity);
+                    } catch (IllegalArgumentException ex) {}
+                }
+            }
+        }
+        if (defaultGranularity != null) {
+            try {
+                return Granularity.getGranularity(defaultGranularity);
+            } catch (IllegalArgumentException ex) {}
+        }
+        
+        return Granularity.COUNT;
+    }
+
+    protected BeaconResultsetsResponse makeResultsetsResponse(
+            long count, BeaconRequestBody request) {
+        BeaconResultsetsResponse response = new BeaconResultsetsResponse();
+
+        if (count == 0) {
+            response.setResponseSummary(new BeaconResponseSummary(false));
+        } else {
+            response.setResponseSummary(new BeaconResponseSummary((int)count));
+
+            BeaconResultset resultset = new BeaconResultset();
+            resultset.setExists(true);
+            resultset.setResultsCount((int)count);
+
+            BeaconResultsets resultsets = new BeaconResultsets();
+            resultsets.setResultSets(Arrays.asList(resultset));
+
+            response.setResponse(resultsets);
+        }
+        response.setMeta(getMeta(request));
+        return response;
+    }
+
     protected BeaconResultsetsResponse makeResultsetsResponse(
             List beacons, BeaconRequestBody request) {
         BeaconResultsetsResponse response = new BeaconResultsetsResponse();

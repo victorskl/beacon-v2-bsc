@@ -32,8 +32,6 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.IndividualsRequestParameters
 import es.bsc.inb.ga4gh.beacon.nosql.CaseLevelVariantEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.IndividualEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.VariantEntity;
-import es.bsc.inb.ga4gh.beacon.query.BiosamplesRepository;
-import es.bsc.inb.ga4gh.beacon.query.CohortsRepository;
 import es.bsc.inb.ga4gh.beacon.query.IndividualsRepository;
 import es.bsc.inb.ga4gh.beacon.query.VariantsRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -64,15 +62,11 @@ public class IndividualsService
     @Database(DatabaseType.DOCUMENT)
     private VariantsRepository variants_repository;
 
-    @Inject
-    @Database(DatabaseType.DOCUMENT)
-    private CohortsRepository cohorts_repository;
-
     @Override
     public IndividualsRepository getRepository() {
         return individuals_repository;
     }
-    
+
     @Override
     protected List findEntities(IndividualsRequestParameters params, 
             Pagination pagination) {
