@@ -108,7 +108,7 @@ public abstract class AbstractBeaconService<K extends Repository,
     }
 
     public abstract K getRepository();
-    
+
     protected long countEntities(L params, Pagination pagination) {
         return getRepository().count();
     }
@@ -164,6 +164,11 @@ public abstract class AbstractBeaconService<K extends Repository,
             if (granularity == Granularity.COUNT) {
                 final long count = countEntities(params, pagination);
                 return makeResultsetsResponse(count, request);
+            }
+            
+            if (granularity == Granularity.BOOLEAN) {
+                final long count = countEntities(params, pagination);
+                return makeResultsetsResponse(count > 0, request);
             }
         } catch (Throwable th) {
             th.printStackTrace();
@@ -222,6 +227,14 @@ public abstract class AbstractBeaconService<K extends Repository,
         }
         
         return Granularity.COUNT;
+    }
+
+    protected BeaconResultsetsResponse makeResultsetsResponse(
+            boolean exists, BeaconRequestBody request) {
+        BeaconResultsetsResponse response = new BeaconResultsetsResponse();
+        response.setResponseSummary(new BeaconResponseSummary(exists));
+        response.setMeta(getMeta(request));
+        return response;
     }
 
     protected BeaconResultsetsResponse makeResultsetsResponse(
