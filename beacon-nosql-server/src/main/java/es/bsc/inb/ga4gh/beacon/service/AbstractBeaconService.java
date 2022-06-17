@@ -340,6 +340,10 @@ public abstract class AbstractBeaconService<K extends Repository,
             request_summary.setApiVersion(apiVersion);
         }
 
+        if (request_summary.getRequestedGranularity() == null) {
+            request_summary.setRequestedGranularity(defaultGranularity);
+        }
+
         if (request_summary.getRequestedSchemas() == null) {
             request_summary.setRequestedSchemas(Collections.EMPTY_LIST);
         }
@@ -349,12 +353,12 @@ public abstract class AbstractBeaconService<K extends Repository,
         response_meta.setBeaconId(beaconId);
         response_meta.setApiVersion(apiVersion);
 
-        // TODO: use requested granularity when implemented
-        response_meta.setReturnedGranularity(defaultGranularity);
+        response_meta.setReturnedGranularity(request_summary.getRequestedGranularity());
 
         if (defaultSchema != null) {
             response_meta.setReturnedSchemas(Arrays.asList(defaultSchema));
         }
+
         return response_meta;
     }
 }
