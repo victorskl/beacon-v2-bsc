@@ -251,24 +251,22 @@ public abstract class AbstractBeaconService<K extends Repository,
             List beacons, BeaconRequestBody request) {
         BeaconResultsetsResponse response = new BeaconResultsetsResponse();
 
-        if (beacons.isEmpty()) {
-            response.setResponseSummary(new BeaconResponseSummary(false));
-        } else {
-            response.setResponseSummary(new BeaconResponseSummary(beacons.size()));
+        response.setResponseSummary(new BeaconResponseSummary(beacons.size()));
 
-            BeaconResultset resultset = new BeaconResultset();
-            resultset.setId(entry_type);
-            resultset.setSetType(entry_type);
-            resultset.setExists(true);
-            resultset.setResultsCount(beacons.size());
-            resultset.setResults(beacons);
+        BeaconResultset resultset = new BeaconResultset();
+        resultset.setId(entry_type);
+        resultset.setSetType(entry_type);
+        resultset.setExists(!beacons.isEmpty());
+        resultset.setResultsCount(beacons.size());
+        resultset.setResults(beacons);
 
-            BeaconResultsets resultsets = new BeaconResultsets();
-            resultsets.setResultSets(Arrays.asList(resultset));
+        BeaconResultsets resultsets = new BeaconResultsets();
+        resultsets.setResultSets(Arrays.asList(resultset));
 
-            response.setResponse(resultsets);
-        }
+        response.setResponse(resultsets);
+
         response.setMeta(getMeta(request));
+
         return response;
     }
 
