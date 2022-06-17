@@ -337,6 +337,10 @@ public abstract class AbstractBeaconService<K extends Repository,
             request_summary.setRequestedSchemas(Collections.EMPTY_LIST);
         }
         
+        if (request_summary.getPagination() == null) {
+            request_summary.setPagination(new es.bsc.inb.ga4gh.beacon.framework.model.v200.common.Pagination());
+        }
+
         response_meta.setReceivedRequestSummary(request_summary);
       
         response_meta.setBeaconId(beaconId);
