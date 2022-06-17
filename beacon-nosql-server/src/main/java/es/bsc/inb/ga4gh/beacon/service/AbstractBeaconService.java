@@ -123,26 +123,11 @@ public abstract class AbstractBeaconService<K extends Repository,
 
         try {
             Optional entity = getRepository().findById(id);
-
-            BeaconResultsetsResponse response = new BeaconResultsetsResponse();
-
             if (entity.isEmpty()) {
-                response.setResponseSummary(new BeaconResponseSummary(false));
-            } else {
-                response.setResponseSummary(new BeaconResponseSummary(1));
-
-                BeaconResultset resultset = new BeaconResultset();
-                resultset.setExists(true);
-                resultset.setResultsCount(1);
-                resultset.setResults(Arrays.asList(entity.get()));
-
-                BeaconResultsets resultsets = new BeaconResultsets();
-                resultsets.setResultSets(Arrays.asList(resultset));
-
-                response.setResponse(resultsets);
-                response.setMeta(getMeta(request));
+                return makeResultsetsResponse(Collections.EMPTY_LIST, request);
             }
-            return response;
+            
+            return makeResultsetsResponse(Arrays.asList(entity.get()), request);
         } catch (Throwable th) {
             th.printStackTrace();
         }
