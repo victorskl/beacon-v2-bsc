@@ -75,6 +75,7 @@ public abstract class AbstractBeaconService<K extends Repository,
     private String beaconId;
     private String apiVersion;
     private String defaultGranularity;
+    private String entry_type;
     private SchemaPerEntity defaultSchema;
     
     @PostConstruct
@@ -95,13 +96,14 @@ public abstract class AbstractBeaconService<K extends Repository,
             final Map<String, EntryTypeDefinition> entry_types = config.getEntryTypes();
             if (entry_types != null) {
                 final String name = manager.resolve(manager.getBeans(this.getClass())).getName();
-                final EntryTypeDefinition entry_type = entry_types.get(name);
-                if (entry_type != null) {
-                    final SchemaReference schema_ref = entry_type.getDefaultSchema();
+                final EntryTypeDefinition entry_type_definition = entry_types.get(name);
+                if (entry_type_definition != null) {
+                    entry_type = entry_type_definition.getId();
+                    final SchemaReference schema_ref = entry_type_definition.getDefaultSchema();
                     if (schema_ref != null) {
                         defaultSchema = new SchemaPerEntity();
                         defaultSchema.setSchema(schema_ref.getReferenceToSchemaDefinition());
-                        defaultSchema.setEntityType(entry_type.getId());
+                        defaultSchema.setEntityType(entry_type_definition.getId());
                     }
                 }
             }
@@ -270,6 +272,8 @@ public abstract class AbstractBeaconService<K extends Repository,
             response.setResponseSummary(new BeaconResponseSummary(beacons.size()));
 
             BeaconResultset resultset = new BeaconResultset();
+            resultset.setId(entry_type);
+            resultset.setSetType(entry_type);
             resultset.setExists(true);
             resultset.setResultsCount(beacons.size());
             resultset.setResults(beacons);
