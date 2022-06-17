@@ -51,6 +51,7 @@ import jakarta.inject.Inject;
 import jakarta.nosql.mapping.Pagination;
 import jakarta.nosql.mapping.Repository;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -311,13 +312,13 @@ public abstract class AbstractBeaconService<K extends Repository,
         final BeaconReceivedRequestSummary request_summary = 
                 new BeaconReceivedRequestSummary();
 
-        if (request == null) {
-            request_summary.setApiVersion(apiVersion);
-        } else {
+        if (request != null) {
             final BeaconRequestMeta request_meta = request.getMeta();
             if (request_meta != null) {
                 request_summary.setApiVersion(request_meta.getApiVersion());
+                request_summary.setRequestedSchemas(request_meta.getRequestedSchemas());
             }
+            
             final BeaconRequestQuery request_query = request.getQuery();  
             if (request_query != null) {
                 request_summary.setPagination(request_query.getPagination());
@@ -334,6 +335,15 @@ public abstract class AbstractBeaconService<K extends Repository,
                 request_summary.setTestMode(request_query.getTestMode());
             }
         }
+        
+        if (request_summary.getApiVersion() == null) {
+            request_summary.setApiVersion(apiVersion);
+        }
+
+        if (request_summary.getRequestedSchemas() == null) {
+            request_summary.setRequestedSchemas(Collections.EMPTY_LIST);
+        }
+        
         response_meta.setReceivedRequestSummary(request_summary);
       
         response_meta.setBeaconId(beaconId);
