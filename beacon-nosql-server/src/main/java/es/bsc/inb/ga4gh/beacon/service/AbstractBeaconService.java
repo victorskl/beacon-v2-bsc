@@ -36,6 +36,7 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestBody;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestMeta;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestParameters;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.requests.BeaconRequestQuery;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconCollections;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconCollectionsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInformationalResponseMeta;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconReceivedRequestSummary;
@@ -284,10 +285,10 @@ public abstract class AbstractBeaconService<K extends Repository,
             resultset.setResultsCount(beacons.size());
             resultset.setResults(beacons);
 
-            BeaconResultsets resultsets = new BeaconResultsets();
-            resultsets.setResultSets(Arrays.asList(resultset));
+            BeaconCollections collections = new BeaconCollections();
+            collections.setColections(beacons);
 
-            //response.setResponse(resultsets);
+            response.setResponse(collections);
         }
         response.setMeta(getMeta(request));
         return response;
