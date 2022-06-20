@@ -25,7 +25,10 @@
 
 package es.bsc.inb.ga4gh.beacon.application;
 
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.BeaconConfiguration;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.ServiceConfiguration;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconEntryTypesResponse;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.EntryTypes;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
@@ -44,30 +47,26 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 public class BeaconEntryTypesProducer implements Serializable {
-
-    private final static String ENTRY_TYPES = "BEACON-INF/entry_types.json";
     
-    @Inject 
-    private ServletContext ctx;
+    @Inject
+    private ServiceConfiguration configuration;
 
-    private BeaconEntryTypesResponse entry_types;
+    private BeaconEntryTypesResponse entry_types_response;
     
     @PostConstruct
     public void init() {
-        try (InputStream in = ctx.getResourceAsStream(ENTRY_TYPES)) {
-            if (in == null) {
-                Logger.getLogger(BeaconInfoProducer.class.getName()).log(
-                        Level.SEVERE, "no entry types file found: " + ENTRY_TYPES);
-            } else {
-                entry_types = JsonbBuilder.create().fromJson(in, BeaconEntryTypesResponse.class);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(BeaconInfoProducer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        entry_types_response = new BeaconEntryTypesResponse();
+        
+        final BeaconConfiguration conf = configuration.getResponse();
+        final EntryTypes entry_types = new EntryTypes();
+        entry_types.setEntryTypes(conf.getEntryTypes());
+        
+        entry_types_response.setResponse(entry_types);
+        entry_types_response.setMeta(configuration.getMeta());
     }
     
     @Produces
     public BeaconEntryTypesResponse entryTypes() {
-        return entry_types;
+        return entry_types_response;
     }
 }
