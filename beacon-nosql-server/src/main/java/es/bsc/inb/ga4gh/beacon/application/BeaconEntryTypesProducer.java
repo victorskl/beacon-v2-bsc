@@ -33,16 +33,10 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
-import jakarta.json.bind.JsonbBuilder;
-import jakarta.servlet.ServletContext;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * @author Dmiry Repchevsky
+ * @author Dmitry Repchevsky
  */
 
 @ApplicationScoped
