@@ -39,7 +39,9 @@ import jakarta.inject.Named;
 import jakarta.nosql.document.DocumentQuery;
 import jakarta.nosql.document.DocumentQuery.DocumentFrom;
 import jakarta.nosql.document.DocumentQuery.DocumentWhere;
+import jakarta.nosql.mapping.Page;
 import jakarta.nosql.mapping.Pagination;
+import jakarta.nosql.mapping.document.DocumentQueryPagination;
 import jakarta.nosql.mapping.document.DocumentTemplate;
 import java.util.stream.Collectors;
 
@@ -140,46 +142,104 @@ public class GenomicVariationsService
         return query;
     }
     
-    public BeaconResultsetsResponse getAnalysisGenomicVariants(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse getAnalysisGenomicVariants(String id, 
+            BeaconRequestBody request) {
         
         final Pagination pagination = getPagination(request);
 
-        final List<VariantEntity> variants = pagination == null ? 
-                variants_repository.findByAnalisisId(id) : 
-                variants_repository.findByAnalisisId(id, pagination);
-        
-
-        return makeResultsetsResponse(variants, request);
+        try {
+            final List<VariantEntity> variants;
+            if (pagination == null) {
+                variants = variants_repository.findByAnalisisId(id);
+            } else {
+                DocumentQuery query = DocumentQuery.select()
+                        .from("Variants")
+                        .where("caseLevelData.analysisId").eq(id)
+                        .build();
+                DocumentQueryPagination dqp = DocumentQueryPagination.of(query, pagination);
+                Page<VariantEntity> page = template.select(dqp);
+                variants = page.getContent().collect(Collectors.toList());
+            }
+            return makeResultsetsResponse(variants, request);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
-    public BeaconResultsetsResponse getIndividualGenomicVariants(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse getIndividualGenomicVariants(String id, 
+            BeaconRequestBody request) {
+
         final Pagination pagination = getPagination(request);
 
-        final List<VariantEntity> variants = pagination == null ? 
-                variants_repository.findByIndividualId(id) : 
-                variants_repository.findByIndividualId(id, pagination);
-
-        return makeResultsetsResponse(variants, request);
+        try {
+            final List<VariantEntity> variants;
+            if (pagination == null) {
+                variants = variants_repository.findByIndividualId(id);
+            } else {
+                DocumentQuery query = DocumentQuery.select()
+                        .from("Variants")
+                        .where("caseLevelData.individualId").eq(id)
+                        .build();
+                DocumentQueryPagination dqp = DocumentQueryPagination.of(query, pagination);
+                Page<VariantEntity> page = template.select(dqp);
+                variants = page.getContent().collect(Collectors.toList());
+            }
+            return makeResultsetsResponse(variants, request);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
-    public BeaconResultsetsResponse getBiosampleGenomicVariants(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse getBiosampleGenomicVariants(String id, 
+            BeaconRequestBody request) {
+
         final Pagination pagination = getPagination(request);
 
-        final List<VariantEntity> variants = pagination == null ? 
-                variants_repository.findByBiosampleId(id) : 
-                variants_repository.findByBiosampleId(id, pagination);
-
-        return makeResultsetsResponse(variants, request);
+        try {
+            final List<VariantEntity> variants;
+            if (pagination == null) {
+                variants = variants_repository.findByBiosampleId(id);
+            } else {
+                DocumentQuery query = DocumentQuery.select()
+                        .from("Variants")
+                        .where("caseLevelData.biosampleId").eq(id)
+                        .build();
+                DocumentQueryPagination dqp = DocumentQueryPagination.of(query, pagination);
+                Page<VariantEntity> page = template.select(dqp);
+                variants = page.getContent().collect(Collectors.toList());
+            }
+            return makeResultsetsResponse(variants, request);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
-    public BeaconResultsetsResponse getRunsGenomicVariants(String id, BeaconRequestBody request) {
+    public BeaconResultsetsResponse getRunsGenomicVariants(String id, 
+            BeaconRequestBody request) {
+
         final Pagination pagination = getPagination(request);
 
-        final List<VariantEntity> variants = pagination == null ? 
-                variants_repository.findByRunId(id) : 
-                variants_repository.findByRunId(id, pagination);
-
-        return makeResultsetsResponse(variants, request);
+        try {
+            final List<VariantEntity> variants;
+            if (pagination == null) {
+                variants = variants_repository.findByRunId(id);
+            } else {
+                DocumentQuery query = DocumentQuery.select()
+                        .from("Variants")
+                        .where("caseLevelData.runId").eq(id)
+                        .build();
+                DocumentQueryPagination dqp = DocumentQueryPagination.of(query, pagination);
+                Page<VariantEntity> page = template.select(dqp);
+                variants = page.getContent().collect(Collectors.toList());
+            }
+            return makeResultsetsResponse(variants, request);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     private DocumentWhere addEqCondition(DocumentFrom from, DocumentWhere where, String field, Object obj) {
