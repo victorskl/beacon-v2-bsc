@@ -55,7 +55,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <jakarta.nosql.version>1.0.0-SNAPSHOT</jakarta.nosql.version>
+        <jakarta.nosql.version>1.0.0-b4</jakarta.nosql.version>
 
         <jakarta.json.version>2.1.0</jakarta.json.version>
         <jakarta.json.bind.version>3.0.0</jakarta.json.bind.version>
