@@ -53,6 +53,9 @@ public class BeaconEndpoint implements BeaconEndpointInterface {
     @Inject
     private BeaconEntryTypesResponse entry_types;
     
+    @Inject
+    private BeaconMapResponse beacon_map;
+    
     @Override
     public BeaconInfoResponse getBeaconInfoRoot(String requestedSchema) {
         return beacon_info;
@@ -75,7 +78,7 @@ public class BeaconEndpoint implements BeaconEndpointInterface {
 
     @Override
     public BeaconMapResponse getBeaconMap() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return beacon_map;
     }
 
     @Override

@@ -1,0 +1,170 @@
+{
+    "meta": {
+        "apiVersion": "v2.0.0",
+        "beaconId": "es.elixir.bsc.beacon",
+        "receivedRequestSummary": {},
+        "returnedGranularity": "",
+        "returnedSchemas": [],
+        "testMode": true
+    },
+    "response": {
+        "endpointSets": {
+            "analysis": {
+                "endpoints": {
+                    "genomicVariant": {
+                        "returnedEntryType": "genomicVariant",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/analyses/{id}/g_variants"
+                    }
+                },
+                "entryType": "analysis",
+                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/analyses",
+                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/analyses",
+                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/analyses/{id}"
+            },
+            "biosample": {
+                "endpoints": {
+                    "analysis": {
+                        "returnedEntryType": "analysis",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/biosamples/{id}/analyses"
+                    },
+                    "genomicVariant": {
+                        "returnedEntryType": "genomicVariant",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/biosamples/{id}/g_variants"
+                    },
+                    "run": {
+                        "returnedEntryType": "run",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/biosamples/{id}/runs"
+                    }
+                },
+                "entryType": "biosample",
+                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/biosamples",
+                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/biosamples",
+                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/biosamples/{id}"
+            },
+            "cohort": {
+                "endpoints": {
+                    "analyses": {
+                        "returnedEntryType": "analysis",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/analyses"
+                    },
+                    "biosample": {
+                        "returnedEntryType": "biosample",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/biosamples"
+                    },
+                    "genomicVariant": {
+                        "returnedEntryType": "genomicVariant",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/g_variants"
+                    },
+                    "individual": {
+                        "returnedEntryType": "individual",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/individuals"
+                    },
+                    "runs": {
+                        "returnedEntryType": "run",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/runs"
+                    }
+                },
+                "entryType": "cohort",
+                "filteringTermsUrl": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/filtering_terms",
+                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/cohorts",
+                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/cohorts",
+                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}"
+            },
+            "dataset": {
+                "endpoints": {
+                    "analyses": {
+                        "returnedEntryType": "analysis",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/analyses"
+                    },
+                    "biosample": {
+                        "returnedEntryType": "biosample",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/biosamples"
+                    },
+                    "genomicVariant": {
+                        "returnedEntryType": "genomicVariant",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/g_variants"
+                    },
+                    "individual": {
+                        "returnedEntryType": "individual",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/individuals"
+                    },
+                    "runs": {
+                        "returnedEntryType": "run",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/runs"
+                    }
+                },
+                "entryType": "dataset",
+                "filteringTermsUrl": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/filtering_terms",
+                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/datasets",
+                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/datasets",
+                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}"
+            },
+            "genomicVariant": {
+                "endpoints": {
+                    "analyses": {
+                        "returnedEntryType": "analysis",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}/analyses"
+                    },
+                    "biosample": {
+                        "returnedEntryType": "biosample",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}/biosamples"
+                    },
+                    "individual": {
+                        "returnedEntryType": "individual",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}/individuals"
+                    },
+                    "runs": {
+                        "returnedEntryType": "run",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}/runs"
+                    }
+                },
+                "entryType": "genomicVariant",
+                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/genomicVariations",
+                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/g_variants",
+                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}"
+            },
+            "individual": {
+                "endpoints": {
+                    "analyses": {
+                        "returnedEntryType": "analysis",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/analyses"
+                    },
+                    "biosample": {
+                        "returnedEntryType": "biosample",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/biosamples"
+                    },
+                    "genomicVariant": {
+                        "returnedEntryType": "genomicVariant",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/g_variants"
+                    },
+                    "runs": {
+                        "returnedEntryType": "run",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/runs"
+                    }
+                },
+                "entryType": "individual",
+                "filteringTermsUrl": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/filtering_terms",
+                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/individuals",
+                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/individuals",
+                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}"
+            },
+            "run": {
+                "endpoints": {
+                    "analysis": {
+                        "returnedEntryType": "analysis",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/runs/{id}/analyses"
+                    },
+                    "genomicVariant": {
+                        "returnedEntryType": "genomicVariant",
+                        "url": "https://beacons.bsc.es/beacon/v2.0.0/runs/{id}/g_variants"
+                    }
+                },
+                "entryType": "run",
+                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/runs",
+                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/runs",
+                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/runs/{id}"
+            }
+        }
+    }
+}
+
