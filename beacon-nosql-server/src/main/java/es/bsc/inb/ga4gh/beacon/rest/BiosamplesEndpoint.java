@@ -37,6 +37,7 @@ import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
 import es.bsc.inb.ga4gh.beacon.service.RunsService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import java.util.List;
 
 /**
  * @author Dmitry Repchevsky
@@ -60,7 +61,7 @@ public class BiosamplesEndpoint extends AbstractAsyncEndpoint
     
     @Override
     public BeaconResultsetsResponse getBiosamples(String requested_schema, 
-            Integer skip, Integer limit, String include_responses) {
+            Integer skip, Integer limit, String include_responses, List<String> filters) {
         
         if (limit == null) {
             limit = 3; // limit 
