@@ -67,7 +67,6 @@
 
         <jakarta.json.version>2.1.0</jakarta.json.version>
         <jakarta.json.bind.version>3.0.0</jakarta.json.bind.version>
-        <org.eclipse.yasson.version>3.0.0-RC2</org.eclipse.yasson.version>
 
     </properties>
 
