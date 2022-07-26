@@ -21,7 +21,7 @@
             "schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2-Models/main/BEACON-V2-Model/datasets/defaultSchema.json"
           },
           {
-            "entityType": "genomicVariation",
+            "entityType": "genomicVariant",
             "schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2-Models/main/BEACON-V2-Model/genomicVariations/defaultSchema.json"
           },
           {

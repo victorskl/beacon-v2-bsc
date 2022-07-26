@@ -94,14 +94,14 @@
         },
         "aCollectionOf": [
           {
-            "id": "genomicVariation",
+            "id": "genomicVariant",
             "name": "Genomic Variants"
           }
         ],
         "additionalSupportedSchemas": []
       },
-      "genomicVariation": {
-        "id": "genomicVariation",
+      "genomicVariant": {
+        "id": "genomicVariant",
         "name": "Genomic Variants",
         "ontologyTermForThisType": {
           "id": "SO:0000735",
