@@ -29,6 +29,7 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInfoResponse
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconMapResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconEntryTypesResponse;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.ServiceConfiguration;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconFilteringTermsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.rest.BeaconEndpointInterface;
 import es.bsc.inb.ga4gh.service_info.model.v100.Service;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -55,6 +56,9 @@ public class BeaconEndpoint implements BeaconEndpointInterface {
     
     @Inject
     private BeaconMapResponse beacon_map;
+    
+    @Inject
+    private BeaconFilteringTermsResponse filtering_terms;
     
     @Override
     public BeaconInfoResponse getBeaconInfoRoot(String requestedSchema) {
@@ -86,4 +90,8 @@ public class BeaconEndpoint implements BeaconEndpointInterface {
         return entry_types;
     }
 
+    @Override
+    public BeaconFilteringTermsResponse getFilteringTerms() {
+        return filtering_terms;
+    }
 }
