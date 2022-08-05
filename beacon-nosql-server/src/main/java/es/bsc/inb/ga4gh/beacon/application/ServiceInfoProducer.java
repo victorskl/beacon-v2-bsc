@@ -25,15 +25,16 @@
 
 package es.bsc.inb.ga4gh.beacon.application;
 
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInfoResponse;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInfoResults;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInformationalResponseMeta;
+import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconOrganization;
+import es.bsc.inb.ga4gh.service_info.model.v100.Organization;
 import es.bsc.inb.ga4gh.service_info.model.v100.Service;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
-import jakarta.json.bind.JsonbBuilder;
-import jakarta.servlet.ServletContext;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.URI;
 
 /**
  * @author Dmitry Repchevsky
@@ -41,24 +42,36 @@ import java.util.logging.Logger;
 
 public class ServiceInfoProducer {
 
-    private final static String SERVICE_INFO_FILE = "BEACON-INF/service_info.json";
+    @Inject
+    private BeaconInfoResponse beacon_info;
     
-    @Inject 
-    private ServletContext ctx;
-
     private Service service_info;
     
     @PostConstruct
     public void init() {
-        try (InputStream in = ctx.getResourceAsStream(SERVICE_INFO_FILE)) {
-            if (in == null) {
-                Logger.getLogger(ServiceInfoProducer.class.getName()).log(
-                        Level.SEVERE, "no service info file found: " + SERVICE_INFO_FILE);
-            } else {
-                service_info = JsonbBuilder.create().fromJson(in, Service.class);
+        service_info = new Service();
+        
+        final BeaconInformationalResponseMeta meta = beacon_info.getMeta();
+        if (meta != null) {
+            service_info.setId(meta.getBeaconId());
+            service_info.setVersion(meta.getApiVersion());
+        }
+        
+        final BeaconInfoResults results = beacon_info.getResponse();
+        if (results != null) {
+            service_info.setName(results.getName());
+            final BeaconOrganization beaconOrganization = results.getOrganization();
+            if (beaconOrganization != null) {
+                final Organization organization = new Organization();
+                organization.setId(beaconOrganization.getId());
+                final String welcome_url = beaconOrganization.getWelcomeUrl();
+                if (welcome_url != null) {
+                    try {
+                        organization.setUrl(URI.create(welcome_url));
+                    } catch(IllegalArgumentException ex) {}
+                }
+                service_info.setOrganization(organization);
             }
-        } catch (Exception ex) {
-            Logger.getLogger(ServiceInfoProducer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
