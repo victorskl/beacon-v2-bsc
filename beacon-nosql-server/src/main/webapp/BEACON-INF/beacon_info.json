@@ -52,9 +52,9 @@
             "info": {
                 "updateDateTime": "2022-04-12"
             },
-            "logoUrl": "",
-            "name": "",
-            "welcomeUrl": ""
+            "logoUrl": "https://temu.bsc.es/assets/images/BSC-blue-small.png",
+            "name": "Barcelona Supercomputing Center",
+            "welcomeUrl": "www.bsc.es"
         },
         "updateDateTime": "2022-04-12T00:00:00",
         "version": "v2",

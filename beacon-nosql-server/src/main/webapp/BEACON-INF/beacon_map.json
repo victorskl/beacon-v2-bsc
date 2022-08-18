@@ -17,7 +17,6 @@
                     }
                 },
                 "entryType": "analysis",
-                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/analyses",
                 "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/analyses",
                 "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/analyses/{id}"
             },
@@ -37,7 +36,6 @@
                     }
                 },
                 "entryType": "biosample",
-                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/biosamples",
                 "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/biosamples",
                 "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/biosamples/{id}"
             },
@@ -66,7 +64,6 @@
                 },
                 "entryType": "cohort",
                 "filteringTermsUrl": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/filtering_terms",
-                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/cohorts",
                 "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/cohorts",
                 "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}"
             },
@@ -95,7 +92,6 @@
                 },
                 "entryType": "dataset",
                 "filteringTermsUrl": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/filtering_terms",
-                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/datasets",
                 "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/datasets",
                 "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}"
             },
@@ -119,7 +115,6 @@
                     }
                 },
                 "entryType": "genomicVariant",
-                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/genomicVariations",
                 "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/g_variants",
                 "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}"
             },
@@ -144,7 +139,6 @@
                 },
                 "entryType": "individual",
                 "filteringTermsUrl": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/filtering_terms",
-                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/individuals",
                 "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/individuals",
                 "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}"
             },
@@ -160,7 +154,6 @@
                     }
                 },
                 "entryType": "run",
-                "openAPIEndpointsDefinition": "https://progenetix.org/services/endpoints/runs",
                 "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/runs",
                 "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/runs/{id}"
             }
