@@ -55,7 +55,8 @@ public interface BiosamplesRepository
     
     List<BiosampleEntity> findAll(Pagination pagination);
 
-    List<BiosampleEntity> findByIndividualId(String individualId);
+    @Query("select * from Biosamples where individualId = @individualId")
+    List<BiosampleEntity> findByIndividualId(@Param("individualId") String individualId);
     
     List<BiosampleEntity> findByIndividualId(String individualId, Pagination pagination);
 }
