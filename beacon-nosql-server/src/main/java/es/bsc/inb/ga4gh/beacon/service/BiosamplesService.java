@@ -88,8 +88,8 @@ public class BiosamplesService
         final List<BiosampleEntity> biosamples = new ArrayList();
         
         final Pagination pagination = getPagination(request);
-        final int start = pagination == null ? 0 : (int)pagination.getSkip();
-        final int end = pagination == null ? data.size() : (int)pagination.getLimit();
+        final int start = Math.min(data.size(), pagination == null ? 0 : (int)pagination.getSkip());
+        final int end = Math.min(data.size(), pagination == null ? data.size() : (int)pagination.getLimit());
 
         for (int i = start; i < end; i++) {
             final CaseLevelVariantEntity entity = data.get(i);
@@ -113,5 +113,10 @@ public class BiosamplesService
                 biosamples_repository.findByIndividualId(id, pagination);
 
         return makeResultsetsResponse(variants, request);
+    }
+    
+    public BeaconResultsetsResponse getDatasetBiosamples(String id, BeaconRequestBody request) {
+        // not implemented
+        return makeResultsetsResponse(Collections.EMPTY_LIST, request);
     }
 }

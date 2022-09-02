@@ -38,6 +38,7 @@ import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
 import es.bsc.inb.ga4gh.beacon.service.IndividualsService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.WebApplicationException;
 
 /**
  * @author Dmitry Repchevsky
@@ -139,12 +140,12 @@ public class IndividualsEndpoint extends AbstractAsyncEndpoint
     @Override
     public BeaconFilteringTermsResponse getIndividualFilteringTerms(Integer skip, 
             Integer limit) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new WebApplicationException("not implemented", 501);
     }
 
     @Override
     public BeaconFilteringTermsResponse postIndividualFilteringTermsRequest(BeaconRequestBody request) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new WebApplicationException("not implemented", 501);
     }
     
 }

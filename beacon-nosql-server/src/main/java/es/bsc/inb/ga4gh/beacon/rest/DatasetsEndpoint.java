@@ -36,6 +36,7 @@ import es.bsc.inb.ga4gh.beacon.framework.rest.DatasetsEndpointInterface;
 import es.bsc.inb.ga4gh.beacon.service.DatasetsService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.WebApplicationException;
 
 /**
  * @author Dmitry Repchevsky
@@ -85,37 +86,48 @@ public class DatasetsEndpoint extends AbstractAsyncEndpoint
     @Override
     public BeaconResultsetsResponse getOneDatasetGenomicVariants(
             String id, String requested_schema, Integer skip, Integer limit) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new WebApplicationException("not implemented", 501);
     }
 
     @Override
     public BeaconResultsetsResponse postOneDatasetGenomicVariantsRequest(
             String id, BeaconRequestBody request) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new WebApplicationException("not implemented", 501);
     }
 
     @Override
     public BeaconResultsetsResponse getOneDatasetBiosamples(
             String id, String requested_schema, Integer skip, Integer limit) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new WebApplicationException("not implemented", 501);
+
+    /*
+        BeaconRequestQuery query = new BeaconRequestQuery<DatasetsRequestParameters>();
+        query.setPagination(new Pagination(skip, limit));
+        
+        BeaconRequestBody request = new BeaconRequestBody();
+        request.setQuery(query);
+        request.setSchema(requested_schema);
+
+        return biosamples_service.getDatasetBiosamples(id, request);
+    */
     }
 
     @Override
     public BeaconResultsetsResponse postOneDatasetBiosamplesRequest(
             String id, BeaconRequestBody request) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new WebApplicationException("not implemented", 501);
     }
 
     @Override
     public BeaconResultsetsResponse getOneDatasetIndividuals(
             String id, String requested_schema, Integer skip, Integer limit) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new WebApplicationException("not implemented", 501);
     }
 
     @Override
     public BeaconResultsetsResponse postOneDatasetIndividualsRequest(
             String id, BeaconRequestBody request) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new WebApplicationException("not implemented", 501);
     }
 
     @Override
