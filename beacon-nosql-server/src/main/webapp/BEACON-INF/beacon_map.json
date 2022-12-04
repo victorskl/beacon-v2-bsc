@@ -1,7 +1,7 @@
 {
     "meta": {
         "apiVersion": "v2.0.0",
-        "beaconId": "es.elixir.bsc.beacon",
+        "beaconId": "org.umccr.demo.faro",
         "receivedRequestSummary": {},
         "returnedGranularity": "",
         "returnedSchemas": [],
@@ -13,149 +13,149 @@
                 "endpoints": {
                     "genomicVariant": {
                         "returnedEntryType": "genomicVariant",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/analyses/{id}/g_variants"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/analyses/{id}/g_variants"
                     }
                 },
                 "entryType": "analysis",
-                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/analyses",
-                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/analyses/{id}"
+                "rootUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/analyses",
+                "singleEntryUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/analyses/{id}"
             },
             "biosample": {
                 "endpoints": {
                     "analysis": {
                         "returnedEntryType": "analysis",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/biosamples/{id}/analyses"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/biosamples/{id}/analyses"
                     },
                     "genomicVariant": {
                         "returnedEntryType": "genomicVariant",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/biosamples/{id}/g_variants"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/biosamples/{id}/g_variants"
                     },
                     "run": {
                         "returnedEntryType": "run",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/biosamples/{id}/runs"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/biosamples/{id}/runs"
                     }
                 },
                 "entryType": "biosample",
-                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/biosamples",
-                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/biosamples/{id}"
+                "rootUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/biosamples",
+                "singleEntryUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/biosamples/{id}"
             },
             "cohort": {
                 "endpoints": {
                     "analyses": {
                         "returnedEntryType": "analysis",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/analyses"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/cohorts/{id}/analyses"
                     },
                     "biosample": {
                         "returnedEntryType": "biosample",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/biosamples"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/cohorts/{id}/biosamples"
                     },
                     "genomicVariant": {
                         "returnedEntryType": "genomicVariant",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/g_variants"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/cohorts/{id}/g_variants"
                     },
                     "individual": {
                         "returnedEntryType": "individual",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/individuals"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/cohorts/{id}/individuals"
                     },
                     "runs": {
                         "returnedEntryType": "run",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/runs"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/cohorts/{id}/runs"
                     }
                 },
                 "entryType": "cohort",
-                "filteringTermsUrl": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}/filtering_terms",
-                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/cohorts",
-                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/cohorts/{id}"
+                "filteringTermsUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/cohorts/{id}/filtering_terms",
+                "rootUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/cohorts",
+                "singleEntryUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/cohorts/{id}"
             },
             "dataset": {
                 "endpoints": {
                     "analyses": {
                         "returnedEntryType": "analysis",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/analyses"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/datasets/{id}/analyses"
                     },
                     "biosample": {
                         "returnedEntryType": "biosample",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/biosamples"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/datasets/{id}/biosamples"
                     },
                     "genomicVariant": {
                         "returnedEntryType": "genomicVariant",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/g_variants"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/datasets/{id}/g_variants"
                     },
                     "individual": {
                         "returnedEntryType": "individual",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/individuals"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/datasets/{id}/individuals"
                     },
                     "runs": {
                         "returnedEntryType": "run",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/runs"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/datasets/{id}/runs"
                     }
                 },
                 "entryType": "dataset",
-                "filteringTermsUrl": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}/filtering_terms",
-                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/datasets",
-                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/datasets/{id}"
+                "filteringTermsUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/datasets/{id}/filtering_terms",
+                "rootUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/datasets",
+                "singleEntryUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/datasets/{id}"
             },
             "genomicVariant": {
                 "endpoints": {
                     "analyses": {
                         "returnedEntryType": "analysis",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}/analyses"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/g_variants/{id}/analyses"
                     },
                     "biosample": {
                         "returnedEntryType": "biosample",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}/biosamples"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/g_variants/{id}/biosamples"
                     },
                     "individual": {
                         "returnedEntryType": "individual",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}/individuals"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/g_variants/{id}/individuals"
                     },
                     "runs": {
                         "returnedEntryType": "run",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}/runs"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/g_variants/{id}/runs"
                     }
                 },
                 "entryType": "genomicVariant",
-                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/g_variants",
-                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/g_variants/{id}"
+                "rootUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/g_variants",
+                "singleEntryUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/g_variants/{id}"
             },
             "individual": {
                 "endpoints": {
                     "analyses": {
                         "returnedEntryType": "analysis",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/analyses"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/individuals/{id}/analyses"
                     },
                     "biosample": {
                         "returnedEntryType": "biosample",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/biosamples"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/individuals/{id}/biosamples"
                     },
                     "genomicVariant": {
                         "returnedEntryType": "genomicVariant",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/g_variants"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/individuals/{id}/g_variants"
                     },
                     "runs": {
                         "returnedEntryType": "run",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/runs"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/individuals/{id}/runs"
                     }
                 },
                 "entryType": "individual",
-                "filteringTermsUrl": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}/filtering_terms",
-                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/individuals",
-                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/individuals/{id}"
+                "filteringTermsUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/individuals/{id}/filtering_terms",
+                "rootUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/individuals",
+                "singleEntryUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/individuals/{id}"
             },
             "run": {
                 "endpoints": {
                     "analysis": {
                         "returnedEntryType": "analysis",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/runs/{id}/analyses"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/runs/{id}/analyses"
                     },
                     "genomicVariant": {
                         "returnedEntryType": "genomicVariant",
-                        "url": "https://beacons.bsc.es/beacon/v2.0.0/runs/{id}/g_variants"
+                        "url": "https://faro.demo.umccr.org/beacon/v2.0.0/runs/{id}/g_variants"
                     }
                 },
                 "entryType": "run",
-                "rootUrl": "https://beacons.bsc.es/beacon/v2.0.0/runs",
-                "singleEntryUrl": "https://beacons.bsc.es/beacon/v2.0.0/runs/{id}"
+                "rootUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/runs",
+                "singleEntryUrl": "https://faro.demo.umccr.org/beacon/v2.0.0/runs/{id}"
             }
         }
     }

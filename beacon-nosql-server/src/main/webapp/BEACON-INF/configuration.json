@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-framework-v2/main/responses/beaconConfigurationResponse.json",
   "meta": {
     "$schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-framework-v2/main/responses/sections/beaconInformationalResponseMeta.json",
-    "beaconId": "es.elixir.bsc.beacon",
+    "beaconId": "org.umccr.demo.faro",
     "apiVersion": "v2.0.0",
     "returnedSchemas": []
   },

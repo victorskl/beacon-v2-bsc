@@ -1,0 +1,30 @@
+resourcePackages:
+  - io.swagger.sample.resource
+prettyPrint: true
+cacheTTL: 0
+openAPI:
+  servers:
+    - url: /beacon
+  info:
+    version: '2.0.0'
+    title: UMCCR Beacon v2 Demo
+    description: '
+    Beacon v2 demo instance (JavaEE with MongoDb backend) manged by **Genomics Platform Group** at [UMCCR](https://umccr.org).
+      Please note absolute endpoint URL: e.g. `https://[domain]/beacon/v2.0.0/cohorts`
+      <br /><br />
+      Resources:
+      <ul>
+        <li>[GA4GH Beacon](https://docs.genomebeacons.org)</li>
+        <li>[Open source Java implementation of the Beacon v2 API](https://doi.org/10.7490/f1000research.1118980.1)</li>
+        <li>[Beacon v2 Reference Implementation: a toolkit to enable federated sharing of genomic and phenotypic data](https://doi.org/10.1093/bioinformatics/btac568)</li>
+        <li>[Australian BioCommons: Human Genomes Platform Project](https://www.biocommons.org.au/hgpp)</li>
+        <li>[Serverless Beacon v2 exploration for UMCCR use cases](https://github.com/umccr/sbeacon-exploration)</li>
+        <li>[UMCCR Beacon Documentation](https://github.com/umccr/beacon-doc)</li>
+      </ul>
+      '
+    termsOfService: https://umccr.org
+    contact:
+      email: services@umccr.org
+#    license:
+#      name: Apache 2.0
+#      url: http://www.apache.org/licenses/LICENSE-2.0.html
