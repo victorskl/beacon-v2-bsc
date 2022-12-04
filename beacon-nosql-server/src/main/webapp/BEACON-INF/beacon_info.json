@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-framework-v2/main/responses/beaconInfoResponse.json",
     "meta": {
         "apiVersion": "v2.0.0",
-        "beaconId": "es.elixir.bsc.beacon",
+        "beaconId": "org.umccr.demo.faro",
         "returnedSchemas": [
           {
             "entityType": "analysis",
@@ -37,7 +37,7 @@
     "response": {
         "alternativeUrl": "https://inb.bsc.es",
         "apiVersion": "v2.0.0",
-        "beaconId": "es.elixir.bsc.beacon",
+        "beaconId": "org.umccr.demo.faro",
         "createDateTime": "2022-04-12T00:00:00",
         "datasets": [],
         "description": "Java Beacon 2.0 basic implementation",
