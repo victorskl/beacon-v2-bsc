@@ -26,8 +26,8 @@
 package es.bsc.inb.ga4gh.beacon.rest;
 
 import es.bsc.inb.ga4gh.beacon.framework.rest.AsyncEndpointInterface;
-import jakarta.annotation.Resource;
-import jakarta.enterprise.concurrent.ManagedExecutorService;
+import javax.annotation.Resource;
+import javax.enterprise.concurrent.ManagedExecutorService;
 
 /**
  * @author Dmitry Repchevsky

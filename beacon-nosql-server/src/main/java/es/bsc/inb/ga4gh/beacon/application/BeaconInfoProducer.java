@@ -26,12 +26,12 @@
 package es.bsc.inb.ga4gh.beacon.application;
 
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInfoResponse;
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Inject;
-import jakarta.json.bind.JsonbBuilder;
-import jakarta.servlet.ServletContext;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.json.bind.JsonbBuilder;
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;

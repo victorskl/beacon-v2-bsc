@@ -31,9 +31,9 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconInformationa
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconOrganization;
 import es.bsc.inb.ga4gh.service_info.model.v100.Organization;
 import es.bsc.inb.ga4gh.service_info.model.v100.Service;
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Inject;
+import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import java.net.URI;
 
 /**

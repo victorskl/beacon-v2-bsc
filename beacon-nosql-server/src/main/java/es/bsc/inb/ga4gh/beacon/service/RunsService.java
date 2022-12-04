@@ -30,9 +30,9 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconResultsetsRe
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.RunsRequestParameters;
 import es.bsc.inb.ga4gh.beacon.nosql.RunEntity;
 import es.bsc.inb.ga4gh.beacon.query.RunsRepository;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import jakarta.nosql.mapping.Database;
 import jakarta.nosql.mapping.DatabaseType;
 import jakarta.nosql.mapping.Pagination;

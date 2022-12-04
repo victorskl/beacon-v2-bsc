@@ -26,7 +26,7 @@
 package es.bsc.inb.ga4gh.beacon.query;
 
 import es.bsc.inb.ga4gh.beacon.nosql.CohortEntity;
-import jakarta.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import jakarta.nosql.mapping.Pagination;
 import jakarta.nosql.mapping.Param;
 import jakarta.nosql.mapping.Query;

@@ -32,8 +32,8 @@ import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.ServiceConfigu
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconFilteringTermsResponse;
 import es.bsc.inb.ga4gh.beacon.framework.rest.BeaconEndpointInterface;
 import es.bsc.inb.ga4gh.service_info.model.v100.Service;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 /**
  * @author Dmitry Repchevsky

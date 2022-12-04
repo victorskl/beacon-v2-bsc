@@ -27,7 +27,7 @@ package es.bsc.inb.ga4gh.beacon.nosql;
 
 import es.bsc.inb.ga4gh.beacon.model.v200.biosample.Measurement;
 import es.bsc.inb.ga4gh.beacon.nosql.converter.MeasurementValueDeserializer;
-import jakarta.json.bind.annotation.JsonbTypeDeserializer;
+import javax.json.bind.annotation.JsonbTypeDeserializer;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Entity;
 import java.time.LocalDate;
