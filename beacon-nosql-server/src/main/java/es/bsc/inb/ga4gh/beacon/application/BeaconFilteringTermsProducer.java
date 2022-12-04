@@ -27,9 +27,9 @@ package es.bsc.inb.ga4gh.beacon.application;
 
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.configuration.ServiceConfiguration;
 import es.bsc.inb.ga4gh.beacon.framework.model.v200.responses.BeaconFilteringTermsResponse;
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Inject;
+import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 
 /**
  * @author Dmitry Repchevsky

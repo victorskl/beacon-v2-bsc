@@ -1,7 +1,7 @@
 package es.bsc.inb.ga4gh.beacon.nosql;
 
 import es.bsc.inb.ga4gh.beacon.model.v200.dataset.Dataset;
-import jakarta.json.JsonObject;
+import javax.json.JsonObject;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.Id;

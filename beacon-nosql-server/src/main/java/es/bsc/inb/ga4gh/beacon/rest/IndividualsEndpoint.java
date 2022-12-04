@@ -36,9 +36,9 @@ import es.bsc.inb.ga4gh.beacon.framework.rest.IndividualsEndpointInterface;
 import es.bsc.inb.ga4gh.beacon.service.BiosamplesService;
 import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
 import es.bsc.inb.ga4gh.beacon.service.IndividualsService;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.WebApplicationException;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.ws.rs.WebApplicationException;
 
 /**
  * @author Dmitry Repchevsky

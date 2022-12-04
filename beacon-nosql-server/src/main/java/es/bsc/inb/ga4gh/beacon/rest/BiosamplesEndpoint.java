@@ -35,8 +35,8 @@ import es.bsc.inb.ga4gh.beacon.service.AnalysesService;
 import es.bsc.inb.ga4gh.beacon.service.BiosamplesService;
 import es.bsc.inb.ga4gh.beacon.service.GenomicVariationsService;
 import es.bsc.inb.ga4gh.beacon.service.RunsService;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.List;
 
 /**

@@ -29,13 +29,13 @@ import es.bsc.inb.ga4gh.beacon.nosql.ComplexValueEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.MeasurementValueEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.OntologyTermValueEntity;
 import es.bsc.inb.ga4gh.beacon.nosql.QuantityEntity;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonValue;
-import jakarta.json.bind.Jsonb;
-import jakarta.json.bind.JsonbBuilder;
-import jakarta.json.bind.serializer.DeserializationContext;
-import jakarta.json.bind.serializer.JsonbDeserializer;
-import jakarta.json.stream.JsonParser;
+import javax.json.JsonObject;
+import javax.json.JsonValue;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.serializer.DeserializationContext;
+import javax.json.bind.serializer.JsonbDeserializer;
+import javax.json.stream.JsonParser;
 import java.lang.reflect.Type;
 
 /**

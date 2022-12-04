@@ -25,11 +25,11 @@
 
 package es.bsc.inb.ga4gh.beacon.nosql.value;
 
-import jakarta.json.Json;
-import jakarta.json.JsonArrayBuilder;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonObjectBuilder;
-import jakarta.json.JsonValue;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
 import jakarta.nosql.TypeReferenceReader;
 import jakarta.nosql.TypeSupplier;
 import jakarta.nosql.document.Document;

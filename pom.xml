@@ -65,8 +65,8 @@
 
         <jakarta.nosql.version>1.0.0-b4</jakarta.nosql.version>
 
-        <jakarta.json.version>2.1.0</jakarta.json.version>
-        <jakarta.json.bind.version>3.0.0</jakarta.json.bind.version>
+        <jakarta.json.version>1.1.6</jakarta.json.version>
+        <jakarta.json.bind.version>1.0.2</jakarta.json.bind.version>
 
     </properties>
 

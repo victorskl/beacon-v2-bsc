@@ -27,14 +27,14 @@ package es.bsc.inb.ga4gh.beacon.mongodb;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClients;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Inject;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import jakarta.nosql.document.DocumentCollectionManager;
 import jakarta.nosql.document.DocumentCollectionManagerFactory;
-import jakarta.servlet.ServletContext;
+import javax.servlet.ServletContext;
 import org.eclipse.jnosql.communication.mongodb.document.MongoDBDocumentConfiguration;
 
 /**

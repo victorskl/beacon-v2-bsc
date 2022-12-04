@@ -25,8 +25,8 @@
 
 package es.bsc.inb.ga4gh.beacon.application;
 
-import jakarta.ws.rs.ApplicationPath;
-import jakarta.ws.rs.core.Application;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
 
 /**
  * Beacon JAX-RS configuration (match everything from the root).
