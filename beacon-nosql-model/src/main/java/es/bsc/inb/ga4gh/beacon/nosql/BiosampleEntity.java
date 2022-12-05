@@ -81,7 +81,7 @@ public class BiosampleEntity
     private OntologyTermEntity pathologicalStage;
 
     @Column("pathologicalTnmFinding")
-    private OntologyTermEntity pathologicalTnmFinding;
+    private List<OntologyTermEntity> pathologicalTnmFinding;
     
     @Column("histologicalDiagnosis")
     private OntologyTermEntity histologicalDiagnosis;
@@ -225,12 +225,12 @@ public class BiosampleEntity
     }
     
     @Override
-    public OntologyTermEntity getPathologicalTnmFinding() {
+    public List<OntologyTermEntity> getPathologicalTnmFinding() {
         return pathologicalTnmFinding;
     }
     
     @Override
-    public void setPathologicalTnmFinding(OntologyTermEntity pathologicalTnmFinding) {
+    public void setPathologicalTnmFinding(List<OntologyTermEntity> pathologicalTnmFinding) {
         this.pathologicalTnmFinding = pathologicalTnmFinding;
     }
     
