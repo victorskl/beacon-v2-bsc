@@ -87,7 +87,7 @@ public class BiosampleEntity
     private OntologyTermEntity histologicalDiagnosis;
     
     @Column("diagnosticMarkers")
-    private OntologyTermEntity diagnosticMarkers;
+    private List<OntologyTermEntity> diagnosticMarkers;
     
     @Column("phenotypicFeatures")
     private List<PhenotypicFeatureEntity> phenotypicFeatures;
@@ -245,12 +245,12 @@ public class BiosampleEntity
     }
 
     @Override
-    public OntologyTermEntity getDiagnosticMarkers() {
+    public List<OntologyTermEntity> getDiagnosticMarkers() {
         return diagnosticMarkers;
     }
 
     @Override
-    public void setDiagnosticMarkers(OntologyTermEntity diagnosticMarkers) {
+    public void setDiagnosticMarkers(List<OntologyTermEntity> diagnosticMarkers) {
         this.diagnosticMarkers = diagnosticMarkers;
     }
     
