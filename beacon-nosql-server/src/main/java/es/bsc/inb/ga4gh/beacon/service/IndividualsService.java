@@ -105,7 +105,7 @@ public class IndividualsService
             final String individualId = entity.getIndividualId();
             if (individualId != null) {
                 final Optional<IndividualEntity> individual = 
-                        individuals_repository.findById(id);
+                        individuals_repository.findById(individualId);
                 if (individual != null && individual.isPresent()) {
                     individuals.add(individual.get());
                 }

@@ -96,7 +96,7 @@ public class BiosamplesService
             final String biosampleId = entity.getBiosampleId();
             if (biosampleId != null) {
                 final Optional<BiosampleEntity> biosample = 
-                        biosamples_repository.findById(id);
+                        biosamples_repository.findById(biosampleId);
                 if (biosample != null && biosample.isPresent()) {
                     biosamples.add(biosample.get());
                 }
