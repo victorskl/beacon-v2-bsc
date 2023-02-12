@@ -100,29 +100,29 @@ public class GenomicVariationsService
 
         DocumentQuery.DocumentFrom from = DocumentQuery.select().from("Variants");
 
-        query = addEqCondition(from, query, "variantType", params.getVariantType());
+        query = addEqCondition(from, query, "variation.variantType", params.getVariantType());
         
-        query = addEqCondition(from, query, "referenceBases", params.getReferenceBases());
-        query = addEqCondition(from, query, "alternateBases", params.getAlternateBases());
+        query = addEqCondition(from, query, "variation.referenceBases", params.getReferenceBases());
+        query = addEqCondition(from, query, "variation.alternateBases", params.getAlternateBases());
 
-        query = addEqCondition(from, query, "position.assemblyId", params.getAssemblyId());
-        query = addEqCondition(from, query, "position.refseqId", params.getReferenceName());
+        query = addEqCondition(from, query, "_position.assemblyId", params.getAssemblyId());
+        query = addEqCondition(from, query, "_position.refseqId", params.getReferenceName());
         
         final long[] start = params.getStart();
         if (start != null && start.length > 0) {
-            query = addGteCondition(from, query, "position.start", start[0]);
+            query = addGteCondition(from, query, "_position.start", start[0]);
             if (start.length > 1) {
-                query = addLteCondition(from, query, "position.start", start[1]);
+                query = addLteCondition(from, query, "_position.start", start[1]);
             }
         }
 
         final long[] end = params.getEnd();
         if (end != null && end.length > 0) {
             if (end.length > 1) {
-                query = addGteCondition(from, query, "position.end", end[0]);
-                query = addLteCondition(from, query, "position.end", end[1]);
+                query = addGteCondition(from, query, "_position.end", end[0]);
+                query = addLteCondition(from, query, "_position.end", end[1]);
             } else {
-                query = addLteCondition(from, query, "position.end", end[0]);
+                query = addLteCondition(from, query, "_position.end", end[0]);
             }
         }
 

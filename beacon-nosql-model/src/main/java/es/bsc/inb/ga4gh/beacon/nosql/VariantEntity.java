@@ -37,7 +37,7 @@ import java.util.List;
 
 @Entity("Variants")
 public class VariantEntity 
-        implements Variant<PositionEntity, IdentifiersEntity, MolecularAttributesEntity,
+        implements Variant<VariationEntity, PositionEntity, IdentifiersEntity, MolecularAttributesEntity,
         CaseLevelVariantEntity, VariantLevelDataEntity, PopulationFrequenciesEntity> {
 
     @Id
@@ -45,19 +45,13 @@ public class VariantEntity
 
     @Column("variantInternalId")
     private String variantInternalId;
-    
-    @Column("variantType")
-    private String variantType;
-    
-    @Column("referenceBases")
-    private String referenceBases;
-    
-    @Column("alternateBases")
-    private String alternateBases;
-    
-    @Column("position")
+
+    @Column("variation")
+    private VariationEntity variation;
+
+    @Column("_position")
     private PositionEntity position;
-    
+
     @Column("identifiers")
     private IdentifiersEntity identifiers;
 
@@ -82,36 +76,16 @@ public class VariantEntity
     public void setVariantInternalId(String variantInternalId) {
         this.variantInternalId = variantInternalId;
     }
-    
-    @Override
-    public String getVariantType() {
-        return variantType;
-    }
-    
-    @Override
-    public void setVariantType(String variantType) {
-        this.variantType = variantType;
-    }
-    
-    @Override
-    public String getReferenceBases() {
-        return referenceBases;
+
+    public VariationEntity getVariation() {
+        return variation;
     }
 
     @Override
-    public void setReferenceBases(String referenceBases) {
-        this.referenceBases = referenceBases;
+    public void setVariation(VariationEntity variation) {
+        this.variation = variation;
     }
-    
-    @Override
-    public String getAlternateBases() {
-        return alternateBases;
-    }
-    @Override
-    public void setAlternateBases(String alternateBases) {
-        this.alternateBases = alternateBases;
-    }
-    
+
     @Override
     public PositionEntity getPosition() {
         return position;
@@ -121,7 +95,7 @@ public class VariantEntity
     public void setPosition(PositionEntity position) {
         this.position = position;
     }
-    
+
     @Override
     public IdentifiersEntity getIdentifiers() {
         return identifiers;
